@@ -25,7 +25,6 @@ function search(){
 
 </script>
   
-	
 
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
