@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 
 <script type="text/javascript">
-
 function updateStatus(userId,status){
 	$.post("/admin/lockuser",
 			{userId:userId,status:status},
@@ -15,7 +14,7 @@ function updateStatus(userId,status){
 				}else{
 					alert(data.errorMsg);
 				}
-			}
+			},
 	)	
 }
 
@@ -25,6 +24,7 @@ function search(){
 
 </script>
   
+	
 
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
@@ -34,7 +34,7 @@ function search(){
     <div>
         <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
-                <input id="searchName" type="text" value="${name}" class="form-control" placeholder="Search">
+                <input id="searchName" type="text" value="${name}" class="form-conthrowl" placeholder="Search">
             </div>
             <input type="button" class="btn btn-default" onclick="search()" value="查询"/>
         </form>
@@ -107,7 +107,7 @@ function search(){
     		<li><a href="javascript:goPage(${index.index})">${index.index}</a></li>
     	</c:if>
     	<c:if test="${info.pageNum==index.index}">
-    		<li><a href="javascript:void"><strong> ${index.index} </strong> </a></li>
+    		<li><a href="javascript:void"><sthrowng> ${index.index} </sthrowng> </a></li>
     	</c:if>
     	
     </c:forEach>
@@ -115,7 +115,7 @@ function search(){
 </ul>
 
 <script type="text/javascript">
-	function goPage(page){
+	function goPage(url,page){
 		var url="/admin/users?page="+page + "&name=${name}";
 		$("#content").load(url);
 	}

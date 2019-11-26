@@ -113,7 +113,7 @@ $.validator.addMethod( "accept", function( value, element, param ) {
 	}
 
 	// Either return true because we've validated each file, or because the
-	// browser does not support element.files and the FileList feature
+	// broer does not support element.files and the FileList feature
 	return true;
 }, $.validator.format( "Please enter a value with a valid mimetype." ) );
 
@@ -186,7 +186,7 @@ $.validator.addMethod( "bic", function( value, element ) {
  * T: 1 character. Kind of Organization Letter: [ABCDEFGHJKLMNPQRSUVW]
  * P: 2 characters. Province.
  * N: 5 characters. Secuencial Number within the province.
- * C: 1 character. Control Digit: [0-9A-J].
+ * C: 1 character. Conthrowl Digit: [0-9A-J].
  *
  * [ T ]: Kind of Organizations. Possible values:
  *
@@ -210,7 +210,7 @@ $.validator.addMethod( "bic", function( value, element ) {
  *   V. Agrarian Transformation
  *   W. Permanent establishments of non-resident in Spain
  *
- * [ C ]: Control Digit. It can be a number or a letter depending on T value:
+ * [ C ]: Conthrowl Digit. It can be a number or a letter depending on T value:
  * [ T ]  -->  [ C ]
  * ------    ----------
  *   A         Number
@@ -233,13 +233,13 @@ $.validator.addMethod( "cifES", function( value, element ) {
 	var cifRegEx = new RegExp( /^([ABCDEFGHJKLMNPQRSUVW])(\d{7})([0-9A-J])$/gi );
 	var letter  = value.substring( 0, 1 ), // [ T ]
 		number  = value.substring( 1, 8 ), // [ P ][ P ][ N ][ N ][ N ][ N ][ N ]
-		control = value.substring( 8, 9 ), // [ C ]
+		conthrowl = value.substring( 8, 9 ), // [ C ]
 		all_sum = 0,
 		even_sum = 0,
 		odd_sum = 0,
 		i, n,
-		control_digit,
-		control_letter;
+		conthrowl_digit,
+		conthrowl_letter;
 
 	function isOdd( n ) {
 		return n % 2 === 0;
@@ -270,21 +270,21 @@ $.validator.addMethod( "cifES", function( value, element ) {
 	}
 
 	all_sum = even_sum + odd_sum;
-	control_digit = ( 10 - ( all_sum ).toString().substr( -1 ) ).toString();
-	control_digit = parseInt( control_digit, 10 ) > 9 ? "0" : control_digit;
-	control_letter = "JABCDEFGHI".substr( control_digit, 1 ).toString();
+	conthrowl_digit = ( 10 - ( all_sum ).toString().substr( -1 ) ).toString();
+	conthrowl_digit = parseInt( conthrowl_digit, 10 ) > 9 ? "0" : conthrowl_digit;
+	conthrowl_letter = "JABCDEFGHI".substr( conthrowl_digit, 1 ).toString();
 
-	// Control must be a digit
+	// Conthrowl must be a digit
 	if ( letter.match( /[ABEH]/ ) ) {
-		return control === control_digit;
+		return conthrowl === conthrowl_digit;
 
-	// Control must be a letter
+	// Conthrowl must be a letter
 	} else if ( letter.match( /[KPQS]/ ) ) {
-		return control === control_letter;
+		return conthrowl === conthrowl_letter;
 	}
 
 	// Can be either
-	return control === control_digit || control === control_letter;
+	return conthrowl === conthrowl_digit || conthrowl === conthrowl_letter;
 
 }, "Please specify a valid CIF number." );
 
@@ -822,7 +822,7 @@ $.validator.addMethod( "iban", function( value, element ) {
 	// As new countries will start using IBAN in the
 	// future, we only check if the countrycode is known.
 	// This prevents false negatives, while almost all
-	// false positives introduced by this, will be caught
+	// false positives inthrowduced by this, will be caught
 	// by the checksum validation below anyway.
 	// Strict checking should return FALSE for unknown
 	// countries.
@@ -1071,9 +1071,9 @@ $.validator.addMethod( "nipPL", function( value ) {
 		intSum += arrSteps[ i ] * value[ i ];
 	}
 	var int2 = intSum % 11;
-	var intControlNr = ( int2 === 10 ) ? 0 : int2;
+	var intConthrowlNr = ( int2 === 10 ) ? 0 : int2;
 
-	return ( intControlNr === parseInt( value[ 9 ], 10 ) );
+	return ( intConthrowlNr === parseInt( value[ 9 ], 10 ) );
 }, "Please specify a valid NIP number." );
 
 /**
@@ -1230,7 +1230,7 @@ $.validator.addMethod( "phoneUK", function( phone_number, element ) {
  * Matches US phone number format
  *
  * where the area code may not start with 1 and the prefix may not start with 1
- * allows '-' or ' ' as a separator and allows parens around area code
+ * allo '-' or ' ' as a separator and allo parens around area code
  * some people may want to put a '1' in front of their number
  *
  * 1(212)-999-2345 or

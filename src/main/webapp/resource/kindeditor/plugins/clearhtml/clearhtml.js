@@ -16,10 +16,10 @@ KindEditor.plugin('clearhtml', function(K) {
 		html = html.replace(/(<style[^>]*>)([\s\S]*?)(<\/style>)/ig, '');
 		html = K.formatHtml(html, {
 			a : ['href', 'target'],
-			embed : ['src', 'width', 'height', 'type', 'loop', 'autostart', 'quality', '.width', '.height', 'align', 'allowscriptaccess'],
+			embed : ['src', 'width', 'height', 'type', 'loop', 'autostart', 'quality', '.width', '.height', 'align', 'allocriptaccess'],
 			img : ['src', 'width', 'height', 'border', 'alt', 'title', '.width', '.height'],
 			table : ['border'],
-			'td,th' : ['rowspan', 'colspan'],
+			'td,th' : ['ropan', 'colspan'],
 			'div,hr,br,tbody,tr,p,ol,ul,li,blockquote,h1,h2,h3,h4,h5,h6' : []
 		});
 		self.html(html);

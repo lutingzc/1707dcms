@@ -47,7 +47,7 @@ KindEditor.plugin('image', function(K) {
 			'<label for="remoteUrl" style="width:60px;">' + lang.remoteUrl + '</label>',
 			'<input type="text" id="remoteUrl" class="ke-input-text" name="url" value="" style="width:200px;" /> &nbsp;',
 			'<span class="ke-button-common ke-button-outer">',
-			'<input type="button" class="ke-button-common ke-button" name="viewServer" value="' + lang.viewServer + '" />',
+			'<input type="button" class="ke-button-common ke-button" name="vieerver" value="' + lang.vieerver + '" />',
 			'</span>',
 			'</div>',
 			//size
@@ -144,7 +144,7 @@ KindEditor.plugin('image', function(K) {
 				}
 			},
 			beforeRemove : function() {
-				viewServerBtn.unbind();
+				vieerverBtn.unbind();
 				widthBox.unbind();
 				heightBox.unbind();
 				refreshBtn.unbind();
@@ -154,7 +154,7 @@ KindEditor.plugin('image', function(K) {
 
 		var urlBox = K('[name="url"]', div),
 			localUrlBox = K('[name="localUrl"]', div),
-			viewServerBtn = K('[name="viewServer"]', div),
+			vieerverBtn = K('[name="vieerver"]', div),
 			widthBox = K('.tab1 [name="width"]', div),
 			heightBox = K('.tab1 [name="height"]', div),
 			refreshBtn = K('.ke-refresh-btn', div),
@@ -218,7 +218,7 @@ KindEditor.plugin('image', function(K) {
 			localUrlBox.val(uploadbutton.fileBox.val());
 		});
 		if (allowFileManager) {
-			viewServerBtn.click(function(e) {
+			vieerverBtn.click(function(e) {
 				self.loadPlugin('filemanager', function() {
 					self.plugin.filemanagerDialog({
 						viewType : 'VIEW',
@@ -236,7 +236,7 @@ KindEditor.plugin('image', function(K) {
 				});
 			});
 		} else {
-			viewServerBtn.hide();
+			vieerverBtn.hide();
 		}
 		var originalWidth = 0, originalHeight = 0;
 		function setSize(width, height) {

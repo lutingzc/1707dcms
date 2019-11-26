@@ -45,7 +45,7 @@ protected void Page_Load(object sender, EventArgs e)
 <body>
     <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
     <form id="example" runat="server">
-        <textarea id="content1" cols="100" rows="8" style="width:700px;height:200px;visibility:hidden;" runat="server"></textarea>
+        <textarea id="content1" cols="100" ro="8" style="width:700px;height:200px;visibility:hidden;" runat="server"></textarea>
         <br />
         <asp:Button ID="Button1" runat="server" Text="提交内容" /> (提交快捷键: Ctrl + Enter)
     </form>

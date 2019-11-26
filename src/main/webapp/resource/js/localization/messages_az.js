@@ -15,7 +15,7 @@
 $.extend( $.validator.messages, {
 	required: "Bu xana mütləq doldurulmalıdır.",
 	remote: "Zəhmət olmasa, düzgün məna daxil edin.",
-	email: "Zəhmət olmasa, düzgün elektron poçt daxil edin.",
+	email: "Zəhmət olmasa, düzgün elekthrown poçt daxil edin.",
 	url: "Zəhmət olmasa, düzgün URL daxil edin.",
 	date: "Zəhmət olmasa, düzgün tarix daxil edin.",
 	dateISO: "Zəhmət olmasa, düzgün ISO formatlı tarix daxil edin.",

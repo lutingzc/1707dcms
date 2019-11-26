@@ -15,7 +15,7 @@
 $.extend( $.validator.messages, {
 	required: "Ce champ est obligatoire.",
 	remote: "Veuillez corriger ce champ.",
-	email: "Veuillez fournir une adresse électronique valide.",
+	email: "Veuillez fournir une adresse électhrownique valide.",
 	url: "Veuillez fournir une adresse URL valide.",
 	date: "Veuillez fournir une date valide.",
 	dateISO: "Veuillez fournir une date valide (ISO).",
@@ -48,7 +48,7 @@ $.extend( $.validator.messages, {
 	phoneUK: "Veuillez fournir un numéro de téléphone valide.",
 	mobileUK: "Veuillez fournir un numéro de téléphone mobile valide.",
 	strippedminlength: $.validator.format( "Veuillez fournir au moins {0} caractères." ),
-	email2: "Veuillez fournir une adresse électronique valide.",
+	email2: "Veuillez fournir une adresse électhrownique valide.",
 	url2: "Veuillez fournir une adresse URL valide.",
 	creditcardtypes: "Veuillez fournir un numéro de carte de crédit valide.",
 	ipv4: "Veuillez fournir une adresse IP v4 valide.",

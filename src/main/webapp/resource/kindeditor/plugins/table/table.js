@@ -54,24 +54,24 @@ KindEditor.plugin('table', function(K) {
 	}
 	// 取得下一行cell的index
 	function _getCellIndex(table, row, cell) {
-		var rowSpanCount = 0;
+		var ropanCount = 0;
 		for (var i = 0, len = row.cells.length; i < len; i++) {
 			if (row.cells[i] == cell) {
 				break;
 			}
-			rowSpanCount += row.cells[i].rowSpan - 1;
+			ropanCount += row.cells[i].ropan - 1;
 		}
-		return cell.cellIndex - rowSpanCount;
+		return cell.cellIndex - ropanCount;
 	}
 	self.plugin.table = {
 		//insert or modify table
 		prop : function(isInsert) {
 			var html = [
 				'<div style="padding:20px;">',
-				//rows, cols
+				//ro, cols
 				'<div class="ke-dialog-row">',
-				'<label for="keRows" style="width:90px;">' + lang.cells + '</label>',
-				lang.rows + ' <input type="text" id="keRows" class="ke-input-text ke-input-number" name="rows" value="" maxlength="4" /> &nbsp; ',
+				'<label for="keRo" style="width:90px;">' + lang.cells + '</label>',
+				lang.ro + ' <input type="text" id="keRo" class="ke-input-text ke-input-number" name="ro" value="" maxlength="4" /> &nbsp; ',
 				lang.cols + ' <input type="text" class="ke-input-text ke-input-number" name="cols" value="" maxlength="4" />',
 				'</div>',
 				//width, height
@@ -129,7 +129,7 @@ KindEditor.plugin('table', function(K) {
 				yesBtn : {
 					name : self.lang('yes'),
 					click : function(e) {
-						var rows = rowsBox.val(),
+						var ro = roBox.val(),
 							cols = colsBox.val(),
 							width = widthBox.val(),
 							height = heightBox.val(),
@@ -141,13 +141,13 @@ KindEditor.plugin('table', function(K) {
 							border = borderBox.val(),
 							borderColor = K(colorBox[0]).html() || '',
 							bgColor = K(colorBox[1]).html() || '';
-						if (rows == 0 || !/^\d+$/.test(rows)) {
-							alert(self.lang('invalidRows'));
-							rowsBox[0].focus();
+						if (ro == 0 || !/^\d+$/.test(ro)) {
+							alert(self.lang('invalidRo'));
+							roBox[0].focus();
 							return;
 						}
 						if (cols == 0 || !/^\d+$/.test(cols)) {
-							alert(self.lang('invalidRows'));
+							alert(self.lang('invalidRo'));
 							colsBox[0].focus();
 							return;
 						}
@@ -268,7 +268,7 @@ KindEditor.plugin('table', function(K) {
 							html += ' bordercolor="' + borderColor + '"';
 						}
 						html += '>';
-						for (var i = 0; i < rows; i++) {
+						for (var i = 0; i < ro; i++) {
 							html += '<tr>';
 							for (var j = 0; j < cols; j++) {
 								html += '<td>' + (K.IE ? '&nbsp;' : '<br />') + '</td>';
@@ -286,7 +286,7 @@ KindEditor.plugin('table', function(K) {
 				}
 			}),
 			div = dialog.div,
-			rowsBox = K('[name="rows"]', div).val(3),
+			roBox = K('[name="ro"]', div).val(3),
 			colsBox = K('[name="cols"]', div).val(2),
 			widthBox = K('[name="width"]', div).val(100),
 			heightBox = K('[name="height"]', div),
@@ -302,8 +302,8 @@ KindEditor.plugin('table', function(K) {
 			_setColor(colorBox.eq(0), '#000000');
 			_setColor(colorBox.eq(1), '');
 			// foucs and select
-			rowsBox[0].focus();
-			rowsBox[0].select();
+			roBox[0].focus();
+			roBox[0].select();
 			var table;
 			if (isInsert) {
 				return;
@@ -311,9 +311,9 @@ KindEditor.plugin('table', function(K) {
 			//get selected table node
 			table = self.plugin.getSelectedTable();
 			if (table) {
-				rowsBox.val(table[0].rows.length);
-				colsBox.val(table[0].rows.length > 0 ? table[0].rows[0].cells.length : 0);
-				rowsBox.attr('disabled', true);
+				roBox.val(table[0].ro.length);
+				colsBox.val(table[0].ro.length > 0 ? table[0].ro[0].cells.length : 0);
+				roBox.attr('disabled', true);
 				colsBox.attr('disabled', true);
 				var match,
 					tableWidth = table[0].style.width || table[0].width,
@@ -502,10 +502,10 @@ KindEditor.plugin('table', function(K) {
 				cell = self.plugin.getSelectedCell()[0],
 				index = cell.cellIndex + offset;
 			// 取得第一行的index
-			index += table.rows[0].cells.length - row.cells.length;
+			index += table.ro[0].cells.length - row.cells.length;
 
-			for (var i = 0, len = table.rows.length; i < len; i++) {
-				var newRow = table.rows[i],
+			for (var i = 0, len = table.ro.length; i < len; i++) {
+				var newRow = table.ro[i],
 					newCell = newRow.insertCell(index);
 				newCell.innerHTML = K.IE ? '' : '<br />';
 				// 调整下一行的单元格index
@@ -527,14 +527,14 @@ KindEditor.plugin('table', function(K) {
 				cell = self.plugin.getSelectedCell()[0];
 			var rowIndex = row.rowIndex;
 			if (offset === 1) {
-				rowIndex = row.rowIndex + (cell.rowSpan - 1) + offset;
+				rowIndex = row.rowIndex + (cell.ropan - 1) + offset;
 			}
-			var newRow = table.insertRow(rowIndex);
+			var newRow = table.inserthroww(rowIndex);
 
 			for (var i = 0, len = row.cells.length; i < len; i++) {
 				// 调整cell个数
-				if (row.cells[i].rowSpan > 1) {
-					len -= row.cells[i].rowSpan - 1;
+				if (row.cells[i].ropan > 1) {
+					len -= row.cells[i].ropan - 1;
 				}
 				var newCell = newRow.insertCell(i);
 				// copy colspan
@@ -543,13 +543,13 @@ KindEditor.plugin('table', function(K) {
 				}
 				newCell.innerHTML = K.IE ? '' : '<br />';
 			}
-			// 调整rowspan
+			// 调整ropan
 			for (var j = rowIndex; j >= 0; j--) {
-				var cells = table.rows[j].cells;
+				var cells = table.ro[j].cells;
 				if (cells.length > i) {
 					for (var k = cell.cellIndex; k >= 0; k--) {
-						if (cells[k].rowSpan > 1) {
-							cells[k].rowSpan += 1;
+						if (cells[k].ropan > 1) {
+							cells[k].ropan += 1;
 						}
 					}
 					break;
@@ -570,23 +570,23 @@ KindEditor.plugin('table', function(K) {
 				row = self.plugin.getSelectedRow()[0],
 				cell = self.plugin.getSelectedCell()[0],
 				rowIndex = row.rowIndex, // 当前行的index
-				nextRowIndex = rowIndex + cell.rowSpan, // 下一行的index
-				nextRow = table.rows[nextRowIndex]; // 下一行
+				nexthrowwIndex = rowIndex + cell.ropan, // 下一行的index
+				nexthroww = table.ro[nexthrowwIndex]; // 下一行
 			// 最后一行不能合并
-			if (table.rows.length <= nextRowIndex) {
+			if (table.ro.length <= nexthrowwIndex) {
 				return;
 			}
 			var cellIndex = cell.cellIndex; // 下一行单元格的index
-			if (nextRow.cells.length <= cellIndex) {
+			if (nexthroww.cells.length <= cellIndex) {
 				return;
 			}
-			var nextCell = nextRow.cells[cellIndex]; // 下一行单元格
+			var nextCell = nexthroww.cells[cellIndex]; // 下一行单元格
 			// 上下行的colspan不一致时不能合并
 			if (cell.colSpan !== nextCell.colSpan) {
 				return;
 			}
-			cell.rowSpan += nextCell.rowSpan;
-			nextRow.deleteCell(cellIndex);
+			cell.ropan += nextCell.ropan;
+			nexthroww.deleteCell(cellIndex);
 			self.cmd.range.selectNodeContents(cell).collapse(true);
 			self.cmd.select();
 			self.addBookmark();
@@ -603,8 +603,8 @@ KindEditor.plugin('table', function(K) {
 				return;
 			}
 			var nextCell = row.cells[nextCellIndex];
-			// 左右列的rowspan不一致时不能合并
-			if (cell.rowSpan !== nextCell.rowSpan) {
+			// 左右列的ropan不一致时不能合并
+			if (cell.ropan !== nextCell.ropan) {
 				return;
 			}
 			cell.colSpan += nextCell.colSpan;
@@ -613,18 +613,18 @@ KindEditor.plugin('table', function(K) {
 			self.cmd.select();
 			self.addBookmark();
 		},
-		rowsplit : function() {
+		roplit : function() {
 			var table = self.plugin.getSelectedTable()[0],
 				row = self.plugin.getSelectedRow()[0],
 				cell = self.plugin.getSelectedCell()[0],
 				rowIndex = row.rowIndex;
 			// 不是可分割单元格
-			if (cell.rowSpan === 1) {
+			if (cell.ropan === 1) {
 				return;
 			}
 			var cellIndex = _getCellIndex(table, row, cell);
-			for (var i = 1, len = cell.rowSpan; i < len; i++) {
-				var newRow = table.rows[rowIndex + i],
+			for (var i = 1, len = cell.ropan; i < len; i++) {
+				var newRow = table.ro[rowIndex + i],
 					newCell = newRow.insertCell(cellIndex);
 				if (cell.colSpan > 1) {
 					newCell.colSpan = cell.colSpan;
@@ -633,7 +633,7 @@ KindEditor.plugin('table', function(K) {
 				// 调整下一行的单元格index
 				cellIndex = _getCellIndex(table, newRow, newCell);
 			}
-			K(cell).removeAttr('rowSpan');
+			K(cell).removeAttr('ropan');
 			self.cmd.range.selectNodeContents(cell).collapse(true);
 			self.cmd.select();
 			self.addBookmark();
@@ -649,8 +649,8 @@ KindEditor.plugin('table', function(K) {
 			}
 			for (var i = 1, len = cell.colSpan; i < len; i++) {
 				var newCell = row.insertCell(cellIndex + i);
-				if (cell.rowSpan > 1) {
-					newCell.rowSpan = cell.rowSpan;
+				if (cell.ropan > 1) {
+					newCell.ropan = cell.ropan;
 				}
 				newCell.innerHTML = K.IE ? '' : '<br />';
 			}
@@ -664,8 +664,8 @@ KindEditor.plugin('table', function(K) {
 				row = self.plugin.getSelectedRow()[0],
 				cell = self.plugin.getSelectedCell()[0],
 				index = cell.cellIndex;
-			for (var i = 0, len = table.rows.length; i < len; i++) {
-				var newRow = table.rows[i],
+			for (var i = 0, len = table.ro.length; i < len; i++) {
+				var newRow = table.ro[i],
 					newCell = newRow.cells[index];
 				if (newCell.colSpan > 1) {
 					newCell.colSpan -= 1;
@@ -676,8 +676,8 @@ KindEditor.plugin('table', function(K) {
 					newRow.deleteCell(index);
 				}
 				// 跳过不需要删除的行
-				if (newCell.rowSpan > 1) {
-					i += newCell.rowSpan - 1;
+				if (newCell.ropan > 1) {
+					i += newCell.ropan - 1;
 				}
 			}
 			if (row.cells.length === 0) {
@@ -695,10 +695,10 @@ KindEditor.plugin('table', function(K) {
 				cell = self.plugin.getSelectedCell()[0],
 				rowIndex = row.rowIndex;
 			// 从下到上删除
-			for (var i = cell.rowSpan - 1; i >= 0; i--) {
+			for (var i = cell.ropan - 1; i >= 0; i--) {
 				table.deleteRow(rowIndex + i);
 			}
-			if (table.rows.length === 0) {
+			if (table.ro.length === 0) {
 				self.cmd.range.setStartBefore(table).collapse(true);
 				self.cmd.select();
 				K(table).remove();

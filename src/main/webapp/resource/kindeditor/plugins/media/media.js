@@ -25,7 +25,7 @@ KindEditor.plugin('media', function(K) {
 				'<input class="ke-input-text" type="text" id="keUrl" name="url" value="" style="width:160px;" /> &nbsp;',
 				'<input type="button" class="ke-upload-button" value="' + lang.upload + '" /> &nbsp;',
 				'<span class="ke-button-common ke-button-outer">',
-				'<input type="button" class="ke-button-common ke-button" name="viewServer" value="' + lang.viewServer + '" />',
+				'<input type="button" class="ke-button-common ke-button" name="vieerver" value="' + lang.vieerver + '" />',
 				'</span>',
 				'</div>',
 				//width
@@ -86,7 +86,7 @@ KindEditor.plugin('media', function(K) {
 			}),
 			div = dialog.div,
 			urlBox = K('[name="url"]', div),
-			viewServerBtn = K('[name="viewServer"]', div),
+			vieerverBtn = K('[name="vieerver"]', div),
 			widthBox = K('[name="width"]', div),
 			heightBox = K('[name="height"]', div),
 			autostartBox = K('[name="autostart"]', div);
@@ -128,7 +128,7 @@ KindEditor.plugin('media', function(K) {
 			}
 
 			if (allowFileManager) {
-				viewServerBtn.click(function(e) {
+				vieerverBtn.click(function(e) {
 					self.loadPlugin('filemanager', function() {
 						self.plugin.filemanagerDialog({
 							viewType : 'LIST',
@@ -146,7 +146,7 @@ KindEditor.plugin('media', function(K) {
 					});
 				});
 			} else {
-				viewServerBtn.hide();
+				vieerverBtn.hide();
 			}
 
 			var img = self.plugin.getSelectedMedia();

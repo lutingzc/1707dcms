@@ -100,7 +100,7 @@ define('SERVICES_JSON_SUPPRESS_ERRORS', 32);
  * // create a new instance of Services_JSON
  * $json = new Services_JSON();
  *
- * // convert a complexe value to JSON notation, and send it to the browser
+ * // convert a complexe value to JSON notation, and send it to the broer
  * $value = array('foo', 'bar', array(1, 2, 'baz'), array(3, array(4)));
  * $output = $json->encode($value);
  *

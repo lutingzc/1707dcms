@@ -66,7 +66,7 @@ KindEditor.plugin('filemanager', function(K) {
 		bodyDiv = K('.ke-plugin-filemanager-body', div),
 		moveupImg = K('[name="moveupImg"]', div),
 		moveupLink = K('[name="moveupLink"]', div),
-		viewServerBtn = K('[name="viewServer"]', div),
+		vieerverBtn = K('[name="vieerver"]', div),
 		viewTypeBox = K('[name="viewType"]', div),
 		orderTypeBox = K('[name="orderType"]', div);
 		function reloadPage(path, order, func) {
@@ -131,7 +131,7 @@ KindEditor.plugin('filemanager', function(K) {
 			bodyDiv.append(table);
 			var fileList = result.file_list;
 			for (var i = 0, len = fileList.length; i < len; i++) {
-				var data = fileList[i], row = K(table.insertRow(i));
+				var data = fileList[i], row = K(table.inserthroww(i));
 				row.mouseover(function(e) {
 					K(this).addClass('ke-on');
 				})

@@ -27,4 +27,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE id=#{value}
 	</select>
 	
+	<insert id="add">
+		INSERT INTO cms_user(username,password,nickname,birthday
+                           ,gender,locked,create_time,update_time,url,score,role) 
+		      values(#{username},#{password},#{nickname},#{birthday},
+		       #{gender},0,now(),now(),'',0,#{role}) 
+	</insert>
+	
 </mapper>

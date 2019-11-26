@@ -27,7 +27,7 @@ KindEditor.plugin('insertfile', function(K) {
 			'<input type="text" id="keUrl" name="url" class="ke-input-text" style="width:160px;" /> &nbsp;',
 			'<input type="button" class="ke-upload-button" value="' + lang.upload + '" /> &nbsp;',
 			'<span class="ke-button-common ke-button-outer">',
-			'<input type="button" class="ke-button-common ke-button" name="viewServer" value="' + lang.viewServer + '" />',
+			'<input type="button" class="ke-button-common ke-button" name="vieerver" value="' + lang.vieerver + '" />',
 			'</span>',
 			'</div>',
 			//title
@@ -64,7 +64,7 @@ KindEditor.plugin('insertfile', function(K) {
 		div = dialog.div;
 
 		var urlBox = K('[name="url"]', div),
-			viewServerBtn = K('[name="viewServer"]', div),
+			vieerverBtn = K('[name="vieerver"]', div),
 			titleBox = K('[name="title"]', div);
 
 		if (allowFileUpload) {
@@ -102,7 +102,7 @@ KindEditor.plugin('insertfile', function(K) {
 			K('.ke-upload-button', div).hide();
 		}
 		if (allowFileManager) {
-			viewServerBtn.click(function(e) {
+			vieerverBtn.click(function(e) {
 				self.loadPlugin('filemanager', function() {
 					self.plugin.filemanagerDialog({
 						viewType : 'LIST',
@@ -120,7 +120,7 @@ KindEditor.plugin('insertfile', function(K) {
 				});
 			});
 		} else {
-			viewServerBtn.hide();
+			vieerverBtn.hide();
 		}
 		urlBox.val(fileUrl);
 		titleBox.val(fileTitle);

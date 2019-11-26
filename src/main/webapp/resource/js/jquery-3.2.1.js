@@ -404,7 +404,7 @@ jQuery.extend( {
 	},
 
 	// Support: Android <=4.0 only, PhantomJS 1 only
-	// push.apply(_, arraylike) throws on ancient WebKit
+	// push.apply(_, arraylike) thro on ancient WebKit
 	merge: function( first, second ) {
 		var len = +second.length,
 			j = 0,
@@ -485,7 +485,7 @@ jQuery.extend( {
 		}
 
 		// Quick check to determine if target is callable, in the spec
-		// this throws a TypeError, but we will just return undefined.
+		// this thro a TypeError, but we will just return undefined.
 		if ( !jQuery.isFunction( fn ) ) {
 			return undefined;
 		}
@@ -605,7 +605,7 @@ var i,
 		return -1;
 	},
 
-	booleans = "checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",
+	booleans = "checked|selected|async|autofocus|autoplay|conthrowls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",
 
 	// Regular expressions
 
@@ -699,7 +699,7 @@ var i,
 				return "\uFFFD";
 			}
 
-			// Control characters and (dependent upon position) numbers get escaped as code points
+			// Conthrowl characters and (dependent upon position) numbers get escaped as code points
 			return ch.slice( 0, -1 ) + "\\" + ch.charCodeAt( ch.length - 1 ).toString( 16 ) + " ";
 		}
 
@@ -752,7 +752,7 @@ try {
 }
 
 function Sizzle( selector, context, results, seed ) {
-	var m, i, elem, nid, match, groups, newSelector,
+	var m, i, elem, nid, match, groups, neelector,
 		newContext = context && context.ownerDocument,
 
 		// nodeType defaults to 9, since context defaults to document
@@ -835,7 +835,7 @@ function Sizzle( selector, context, results, seed ) {
 
 				if ( nodeType !== 1 ) {
 					newContext = context;
-					newSelector = selector;
+					neelector = selector;
 
 				// qSA looks outside Element context, which is not what we want
 				// Thanks to Andrew Dupont for this workaround technique
@@ -856,17 +856,17 @@ function Sizzle( selector, context, results, seed ) {
 					while ( i-- ) {
 						groups[i] = "#" + nid + " " + toSelector( groups[i] );
 					}
-					newSelector = groups.join( "," );
+					neelector = groups.join( "," );
 
 					// Expand context for sibling selectors
 					newContext = rsibling.test( selector ) && testContext( context.parentNode ) ||
 						context;
 				}
 
-				if ( newSelector ) {
+				if ( neelector ) {
 					try {
 						push.apply( results,
-							newContext.querySelectorAll( newSelector )
+							newContext.querySelectorAll( neelector )
 						);
 						return results;
 					} catch ( qsaError ) {
@@ -952,7 +952,7 @@ function addHandle( attrs, handler ) {
  * Checks document order of two siblings
  * @param {Element} a
  * @param {Element} b
- * @returns {Number} Returns less than 0 if a precedes b, greater than 0 if a follows b
+ * @returns {Number} Returns less than 0 if a precedes b, greater than 0 if a follo b
  */
 function siblingCheck( a, b ) {
 	var cur = b && a,
@@ -964,7 +964,7 @@ function siblingCheck( a, b ) {
 		return diff;
 	}
 
-	// Check if b follows a
+	// Check if b follo a
 	if ( cur ) {
 		while ( (cur = cur.nextSibling) ) {
 			if ( cur === b ) {
@@ -1120,7 +1120,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	documentIsHTML = !isXML( document );
 
 	// Support: IE 9-11, Edge
-	// Accessing iframe documents after unload throws "permission denied" errors (jQuery #13936)
+	// Accessing iframe documents after unload thro "permission denied" errors (jQuery #13936)
 	if ( preferredDoc !== document &&
 		(subWindow = document.defaultView) && subWindow.top !== subWindow ) {
 
@@ -1269,7 +1269,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	rbuggyMatches = [];
 
 	// qSa(:focus) reports false when true (Chrome 21)
-	// We allow this because of a bug in IE8/9 that throws an error
+	// We allow this because of a bug in IE8/9 that thro an error
 	// whenever `document.activeElement` is accessed on an iframe
 	// So, we allow :focus to pass through QSA all the time to avoid the IE error
 	// See https://bugs.jquery.com/ticket/13378
@@ -1309,7 +1309,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 			// Webkit/Opera - :checked should return selected option elements
 			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
-			// IE8 throws error here and will not see later tests
+			// IE8 thro error here and will not see later tests
 			if ( !el.querySelectorAll(":checked").length ) {
 				rbuggyQSA.push(":checked");
 			}
@@ -1326,7 +1326,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			el.innerHTML = "<a href='' disabled='disabled'></a>" +
 				"<select disabled='disabled'><option/></select>";
 
-			// Support: Windows 8 Native Apps
+			// Support: Windo 8 Native Apps
 			// The type and name attributes are restricted during .innerHTML assignment
 			var input = document.createElement("input");
 			input.setAttribute( "type", "hidden" );
@@ -1339,7 +1339,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			}
 
 			// FF 3.5 - :enabled/:disabled and hidden elements (hidden elements are still enabled)
-			// IE8 throws error here and will not see later tests
+			// IE8 thro error here and will not see later tests
 			if ( el.querySelectorAll(":enabled").length !== 2 ) {
 				rbuggyQSA.push( ":enabled", ":disabled" );
 			}
@@ -1840,7 +1840,7 @@ Expr = Sizzle.selectors = {
 							outerCache = node[ expando ] || (node[ expando ] = {});
 
 							// Support: IE <9 only
-							// Defend against cloned attroperties (jQuery gh-1709)
+							// Defend against cloned atthrowperties (jQuery gh-1709)
 							uniqueCache = outerCache[ node.uniqueID ] ||
 								(outerCache[ node.uniqueID ] = {});
 
@@ -1869,7 +1869,7 @@ Expr = Sizzle.selectors = {
 								outerCache = node[ expando ] || (node[ expando ] = {});
 
 								// Support: IE <9 only
-								// Defend against cloned attroperties (jQuery gh-1709)
+								// Defend against cloned atthrowperties (jQuery gh-1709)
 								uniqueCache = outerCache[ node.uniqueID ] ||
 									(outerCache[ node.uniqueID ] = {});
 
@@ -1895,7 +1895,7 @@ Expr = Sizzle.selectors = {
 											outerCache = node[ expando ] || (node[ expando ] = {});
 
 											// Support: IE <9 only
-											// Defend against cloned attroperties (jQuery gh-1709)
+											// Defend against cloned atthrowperties (jQuery gh-1709)
 											uniqueCache = outerCache[ node.uniqueID ] ||
 												(outerCache[ node.uniqueID ] = {});
 
@@ -2282,7 +2282,7 @@ function addCombinator( matcher, combinator, base ) {
 						outerCache = elem[ expando ] || (elem[ expando ] = {});
 
 						// Support: IE <9 only
-						// Defend against cloned attroperties (jQuery gh-1709)
+						// Defend against cloned atthrowperties (jQuery gh-1709)
 						uniqueCache = outerCache[ elem.uniqueID ] || (outerCache[ elem.uniqueID ] = {});
 
 						if ( skip && skip === elem.nodeName.toLowerCase() ) {
@@ -2566,7 +2566,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 			// NOTE: This can be skipped if there are no unmatched elements (i.e., `matchedCount`
 			// equals `i`), unless we didn't visit _any_ elements in the above loop because we have
 			// no element matchers and no seed.
-			// Incrementing an initially-string "0" `i` allows `i` to remain a string only in that
+			// Incrementing an initially-string "0" `i` allo `i` to remain a string only in that
 			// case, which will result in a "00" `matchedCount` that differs from `i` but is also
 			// numerically zero.
 			if ( bySet && i !== matchedCount ) {
@@ -3199,8 +3199,8 @@ jQuery.each( {
             return elem.contentDocument;
         }
 
-        // Support: IE 9 - 11 only, iOS 7 only, Android Browser <=4.3 only
-        // Treat the template element as a regular one in browsers that
+        // Support: IE 9 - 11 only, iOS 7 only, Android Broer <=4.3 only
+        // Treat the template element as a regular one in broers that
         // don't support it.
         if ( nodeName( elem, "template" ) ) {
             elem = elem.content || elem;
@@ -3489,7 +3489,7 @@ function adoptValue( value, resolve, reject, noValue ) {
 		// Other non-thenables
 		} else {
 
-			// Control `resolve` arguments by letting Array#slice cast boolean `noValue` to integer:
+			// Conthrowl `resolve` arguments by letting Array#slice cast boolean `noValue` to integer:
 			// * false: [ value ].slice( 0 ) => resolve( value )
 			// * true: [ value ].slice( 1 ) => resolve()
 			resolve.apply( undefined, [ value ].slice( noValue ) );
@@ -3931,7 +3931,7 @@ function completed() {
 }
 
 // Catch cases where $(document).ready() is called
-// after the browser event has already occurred.
+// after the broer event has already occurred.
 // Support: IE <=9 - 10 only
 // Older IE sometimes signals "interactive" too soon
 if ( document.readyState === "complete" ||
@@ -4043,7 +4043,7 @@ Data.prototype = {
 		if ( !value ) {
 			value = {};
 
-			// We can accept data for non-element nodes in modern browsers,
+			// We can accept data for non-element nodes in modern broers,
 			// but we should not, see #8335.
 			// Always return an empty object.
 			if ( acceptData( owner ) ) {
@@ -4779,7 +4779,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 			if ( jQuery.type( elem ) === "object" ) {
 
 				// Support: Android <=4.0 only, PhantomJS 1 only
-				// push.apply(_, arraylike) throws on ancient WebKit
+				// push.apply(_, arraylike) thro on ancient WebKit
 				jQuery.merge( nodes, elem.nodeType ? [ elem ] : elem );
 
 			// Convert non-html into a text node
@@ -4802,7 +4802,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 				}
 
 				// Support: Android <=4.0 only, PhantomJS 1 only
-				// push.apply(_, arraylike) throws on ancient WebKit
+				// push.apply(_, arraylike) thro on ancient WebKit
 				jQuery.merge( nodes, tmp.childNodes );
 
 				// Remember the top-level container
@@ -4860,7 +4860,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 
 	// Support: Android 4.0 - 4.3 only
 	// Check state lost if the name is set (#11217)
-	// Support: Windows Web Apps (WWA)
+	// Support: Windo Web Apps (WWA)
 	// `name` and `type` must use .setAttribute for WWA (#14901)
 	input.setAttribute( "type", "radio" );
 	input.setAttribute( "checked", "checked" );
@@ -5351,7 +5351,7 @@ jQuery.event = {
 				}
 			},
 
-			// For cross-browser consistency, don't fire native .click() on links
+			// For cross-broer consistency, don't fire native .click() on links
 			_default: function( event ) {
 				return nodeName( event.target, "a" );
 			}
@@ -5553,7 +5553,7 @@ jQuery.each( {
 				handleObj = event.handleObj;
 
 			// For mouseenter/leave call the handler if related is outside the target.
-			// NB: No relatedTarget if the mouse left/entered the browser window
+			// NB: No relatedTarget if the mouse left/entered the broer window
 			if ( !related || ( related !== target && !jQuery.contains( target, related ) ) ) {
 				event.type = handleObj.origType;
 				ret = handleObj.handler.apply( this, arguments );
@@ -5630,7 +5630,7 @@ var
 	rscriptTypeMasked = /^true\/(.*)/,
 	rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
 
-// Prefer a tbody over its parent table for containing new rows
+// Prefer a tbody over its parent table for containing new ro
 function manipulationTarget( elem, content ) {
 	if ( nodeName( elem, "table" ) &&
 		nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
@@ -5757,7 +5757,7 @@ function domManip( collection, args, callback, ignored ) {
 					if ( hasScripts ) {
 
 						// Support: Android <=4.0 only, PhantomJS 1 only
-						// push.apply(_, arraylike) throws on ancient WebKit
+						// push.apply(_, arraylike) thro on ancient WebKit
 						jQuery.merge( scripts, getAll( node, "script" ) );
 					}
 				}
@@ -6010,7 +6010,7 @@ jQuery.fn.extend( {
 
 					elem = 0;
 
-				// If using innerHTML throws an exception, use the fallback method
+				// If using innerHTML thro an exception, use the fallback method
 				} catch ( e ) {}
 			}
 
@@ -6058,7 +6058,7 @@ jQuery.each( {
 			jQuery( insert[ i ] )[ original ]( elems );
 
 			// Support: Android <=4.0 only, PhantomJS 1 only
-			// .get() because push.apply(_, arraylike) throws on ancient WebKit
+			// .get() because push.apply(_, arraylike) thro on ancient WebKit
 			push.apply( ret, elems.get() );
 		}
 
@@ -6072,8 +6072,8 @@ var rnumnonpx = new RegExp( "^(" + pnum + ")(?!px)[a-z%]+$", "i" );
 var getStyles = function( elem ) {
 
 		// Support: IE <=11 only, Firefox <=30 (#15098, #14150)
-		// IE throws on elements created in popups
-		// FF meanwhile throws on frame elements through "defaultView.getComputedStyle"
+		// IE thro on elements created in popups
+		// FF meanwhile thro on frame elements through "defaultView.getComputedStyle"
 		var view = elem.ownerDocument.defaultView;
 
 		if ( !view || !view.opener ) {
@@ -6127,7 +6127,7 @@ var getStyles = function( elem ) {
 		container = document.createElement( "div" ),
 		div = document.createElement( "div" );
 
-	// Finish early in limited (non-browser) environments
+	// Finish early in limited (non-broer) environments
 	if ( !div.style ) {
 		return;
 	}
@@ -6185,7 +6185,7 @@ function curCSS( elem, name, computed ) {
 		}
 
 		// A tribute to the "awesome hack by Dean Edwards"
-		// Android Browser returns percentage for some values,
+		// Android Broer returns percentage for some values,
 		// but width seems to be reliably pixels.
 		// This is against the CSSOM draft spec:
 		// https://drafts.csswg.org/cssom/#resolved-values
@@ -6353,7 +6353,7 @@ function getWidthOrHeight( elem, name, extra ) {
 		return val;
 	}
 
-	// Check for style in case a browser which returns unreliable values
+	// Check for style in case a broer which returns unreliable values
 	// for getComputedStyle silently falls back to the reliable elem.style
 	valueIsBorderBox = isBorderBox &&
 		( support.boxSizingReliable() || val === elem.style[ name ] );
@@ -6408,7 +6408,7 @@ jQuery.extend( {
 		"opacity": true,
 		"order": true,
 		"orphans": true,
-		"widows": true,
+		"wido": true,
 		"zIndex": true,
 		"zoom": true
 	},
@@ -6549,7 +6549,7 @@ jQuery.each( [ "height", "width" ], function( i, name ) {
 					// getBoundingClientRect().width unless display is changed.
 					// Support: IE <=11 only
 					// Running getBoundingClientRect on a disconnected node
-					// in IE throws an error.
+					// in IE thro an error.
 					( !elem.getClientRects().length || !elem.getBoundingClientRect().width ) ?
 						swap( elem, cssShow, function() {
 							return getWidthOrHeight( elem, name, extra );
@@ -7696,7 +7696,7 @@ jQuery.extend( {
 
 // Support: IE <=11 only
 // Accessing the selectedIndex property
-// forces the browser to respect setting selected
+// forces the broer to respect setting selected
 // on the option
 // The getter ensures a default option is selected
 // when in an optgroup
@@ -7736,7 +7736,7 @@ jQuery.each( [
 	"maxLength",
 	"cellSpacing",
 	"cellPadding",
-	"rowSpan",
+	"ropan",
 	"colSpan",
 	"useMap",
 	"frameBorder",
@@ -8003,7 +8003,7 @@ jQuery.extend( {
 					val :
 
 					// Support: IE <=10 - 11 only
-					// option.text throws exceptions (#14686, #14858)
+					// option.text thro exceptions (#14686, #14858)
 					// Strip and collapse whitespace
 					// https://html.spec.whatwg.org/#strip-and-collapse-whitespace
 					stripAndCollapse( jQuery.text( elem ) );
@@ -8074,7 +8074,7 @@ jQuery.extend( {
 					/* eslint-enable no-cond-assign */
 				}
 
-				// Force browsers to behave consistently when non-matching value is set
+				// Force broers to behave consistently when non-matching value is set
 				if ( !optionSet ) {
 					elem.selectedIndex = -1;
 				}
@@ -8352,7 +8352,7 @@ var rquery = ( /\?/ );
 
 
 
-// Cross-browser xml parsing
+// Cross-broer xml parsing
 jQuery.parseXML = function( data ) {
 	var xml;
 	if ( !data || typeof data !== "string" ) {
@@ -8360,7 +8360,7 @@ jQuery.parseXML = function( data ) {
 	}
 
 	// Support: IE 9 - 11 only
-	// IE throws on parseFromString with invalid input.
+	// IE thro on parseFromString with invalid input.
 	try {
 		xml = ( new window.DOMParser() ).parseFromString( data, "text/xml" );
 	} catch ( e ) {
@@ -8505,7 +8505,7 @@ var
 	rprotocol = /^\/\//,
 
 	/* Prefilters
-	 * 1) They are useful to introduce custom dataTypes (see ajax/jsonp.js for an example)
+	 * 1) They are useful to inthrowduce custom dataTypes (see ajax/jsonp.js for an example)
 	 * 2) These are called:
 	 *    - BEFORE asking for a transport
 	 *    - AFTER param serialization (s.data is a string if s.processData is true)
@@ -8747,7 +8747,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 				if ( conv !== true ) {
 
 					// Unless errors are allowed to bubble, catch and return them
-					if ( conv && s.throws ) {
+					if ( conv && s.thro ) {
 						response = conv( response );
 					} else {
 						try {
@@ -8792,7 +8792,7 @@ jQuery.extend( {
 		username: null,
 		password: null,
 		cache: null,
-		throws: false,
+		thro: false,
 		traditional: false,
 		headers: {},
 		*/
@@ -9017,7 +9017,7 @@ jQuery.extend( {
 			urlAnchor = document.createElement( "a" );
 
 			// Support: IE <=8 - 11, Edge 12 - 13
-			// IE throws exception on accessing the href property if url is malformed,
+			// IE thro exception on accessing the href property if url is malformed,
 			// e.g. http://example.com:80x/
 			try {
 				urlAnchor.href = s.url;
@@ -9340,7 +9340,7 @@ jQuery._evalUrl = function( url ) {
 		cache: true,
 		async: false,
 		global: false,
-		"throws": true
+		"thro": true
 	} );
 };
 
@@ -9498,7 +9498,7 @@ jQuery.ajaxTransport( function( options ) {
 							} else if ( type === "error" ) {
 
 								// Support: IE <=9 only
-								// On a manual native abort, IE9 throws
+								// On a manual native abort, IE9 thro
 								// errors on any property access that is not readyState
 								if ( typeof xhr.status !== "number" ) {
 									complete( 0, "error" );
@@ -9516,7 +9516,7 @@ jQuery.ajaxTransport( function( options ) {
 									xhr.statusText,
 
 									// Support: IE <=9 only
-									// IE9 has no XHR2 but throws on binary (trac-11426)
+									// IE9 has no XHR2 but thro on binary (trac-11426)
 									// For XHR2 non-text, let the caller handle it (gh-2498)
 									( xhr.responseType || "text" ) !== "text"  ||
 									typeof xhr.responseText !== "string" ?
@@ -9980,7 +9980,7 @@ jQuery.fn.extend( {
 		// Return zeros for disconnected and hidden (display: none) elements (gh-2310)
 		// Support: IE <=11 only
 		// Running getBoundingClientRect on a
-		// disconnected node in IE throws an error
+		// disconnected node in IE thro an error
 		if ( !elem.getClientRects().length ) {
 			return { top: 0, left: 0 };
 		}
@@ -10068,7 +10068,7 @@ jQuery.each( { scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function( 
 	jQuery.fn[ method ] = function( val ) {
 		return access( this, function( elem, method, val ) {
 
-			// Coalesce documents and windows
+			// Coalesce documents and windo
 			var win;
 			if ( jQuery.isWindow( elem ) ) {
 				win = elem;
@@ -10241,7 +10241,7 @@ jQuery.noConflict = function( deep ) {
 
 // Expose jQuery and $ identifiers, even in AMD
 // (#7102#comment:10, https://github.com/jquery/jquery/pull/557)
-// and CommonJS for browser emulators (#13566)
+// and CommonJS for broer emulators (#13566)
 if ( !noGlobal ) {
 	window.jQuery = window.$ = jQuery;
 }

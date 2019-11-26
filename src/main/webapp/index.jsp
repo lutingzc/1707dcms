@@ -43,7 +43,7 @@
     
       <form class="navbar-form"  style="float:none;text-align:center;">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input type="text" class="form-conthrowl" placeholder="Search">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
@@ -82,7 +82,7 @@
 			<div class="col-md-2" style="minheight:200px;margin-top:20px" >
 				
 					<ul class="list-group menu">
-						<li class="list-group-item active" >热门文章</li>
+						<li class="list-group-item" >热门文章</li>
 						<c:forEach items="${channels}" var="channel" varStatus="index">
 					    	<li class="list-group-item" data="/indexchn?id=${channel.id}">${channel.name}</li>
 					    </c:forEach>
@@ -116,48 +116,31 @@
 							</div>
 						</div>
 						<!-- 轮播（Carousel）导航 -->
-						<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+						<a class="left carousel-conthrowl" href="#myCarousel" role="button" data-slide="prev">
 							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 							<span class="sr-only">Previous</span>
 						</a>
-						<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+						<a class="right carousel-conthrowl" href="#myCarousel" role="button" data-slide="next">
 							<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 							<span class="sr-only">Next</span>
 						</a>
 					</div>
-					
 					<!-- 放文章的列表 -->
 					<div >
-						<c:forEach items="${hotList.list}" var="article" >
+						<div class=row >
+							 <hr align="left" style="width:100%">
+							<div class="col-md-4"><img height="50px" width="50px" src="/resource/images/avatar1.jpg"></div>
+							<div class="col-md-8">
+								文章大的吧i奥体11
+							</div>
+						</div>
 						<div class=row>
 							<hr>
-							<div class="col-md-2"><img height="80px" width="80px" src="/pic/${article.picture}"></div>
+							<div class="col-md-2"><img height="80px" width="80px" src="/resource/images/avatar1.jpg"></div>
 							<div class="col-md-10">
-								<a href="javascript:showArticle(${article.id})">${article.title}</a>
-								<br>
-								 频道：<a>${article.channel.name}</a> &nbsp;&nbsp;
-								 分类：<a>${article.category.name}</a>
-								<br>
-								<br>
-								${article.user.username} 发布于  <fmt:formatDate value="${article.created}" pattern="yyyy-MM-dd"/> 
+								文章大的吧i奥体11
 							</div>
 							
-						</div>
-						</c:forEach>
-						<div class="row">
-							<ul class="pagination">
-								    <li><a href="/index?page=${hotList.prePage}">&laquo;</a></li>
-								    <c:forEach begin="${hotList.pageNum-2 > 1 ? hotList.pageNum-2:1}" end="${hotList.pageNum+2 > hotList.pages ? hotList.pages:hotList.pageNum+2}" varStatus="index">    		
-								    	<c:if test="${hotList.pageNum!=index.index}">
-								    		<li><a href="/index?page=${index.index}">${index.index}</a></li>
-								    	</c:if>
-								    	<c:if test="${hotList.pageNum==index.index}">
-								    		<li><a href="/index?page=${index.index}"><strong> ${index.index} </strong> </a></li>
-								    	</c:if>
-								    	
-								    </c:forEach>
-								    <li><a href="/index?page=${hotList.nextPage}">&raquo;</a></li>
-								</ul>
 						</div>
 					</div>
 					 
@@ -174,16 +157,23 @@
 						这是一个基本的面板
 					</div>
 				</div>
-				
-				<div class="panel panel-info">
+				<div class="panel panel-success">
 					<div class="panel-heading">
-						<h3 class="panel-title">最新文章</h3>
+						<h3 class="panel-title">面板标题</h3>
 					</div>
 					<div class="panel-body">
-						<c:forEach items="${newArticles}" var="article" varStatus="index">
-							${index.index+1} . <a>${article.title}</a>
-							<br/>
-						</c:forEach>
+						这是一个基本的面板
+					</div>
+					<div class="panel-body">
+						这是一个基本的面板
+					</div>
+				</div>
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">面板标题</h3>
+					</div>
+					<div class="panel-body">
+						这是一个基本的面板
 					</div>
 				</div>
 			
@@ -201,12 +191,6 @@
   <div class="container-fluid">
   </div>
 </nav>
-
-<script type="text/javascript">
-	function showArticle(articleId){
-		window.open("/article/showdetail?id="+articleId)
-	}
-</script>
 
 </body>
 </html>

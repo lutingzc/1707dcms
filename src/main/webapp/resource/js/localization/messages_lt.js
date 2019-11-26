@@ -15,7 +15,7 @@
 $.extend( $.validator.messages, {
 	required: "Šis laukas yra privalomas.",
 	remote: "Prašau pataisyti šį lauką.",
-	email: "Prašau įvesti teisingą elektroninio pašto adresą.",
+	email: "Prašau įvesti teisingą elekthrowninio pašto adresą.",
 	url: "Prašau įvesti teisingą URL.",
 	date: "Prašau įvesti teisingą datą.",
 	dateISO: "Prašau įvesti teisingą datą (ISO).",

@@ -589,7 +589,7 @@ $.extend( $.validator, {
 				i;
 			for ( i in obj ) {
 
-				// This check allows counting elements with empty error
+				// This check allo counting elements with empty error
 				// message as invalid elements
 				if ( obj[ i ] !== undefined && obj[ i ] !== null && obj[ i ] !== false ) {
 					count++;
@@ -728,19 +728,19 @@ $.extend( $.validator, {
 
 			if ( type === "file" ) {
 
-				// Modern browser (chrome & safari)
+				// Modern broer (chrome & safari)
 				if ( val.substr( 0, 12 ) === "C:\\fakepath\\" ) {
 					return val.substr( 12 );
 				}
 
-				// Legacy browsers
+				// Legacy broers
 				// Unix-based path
 				idx = val.lastIndexOf( "/" );
 				if ( idx >= 0 ) {
 					return val.substr( idx + 1 );
 				}
 
-				// Windows-based path
+				// Windo-based path
 				idx = val.lastIndexOf( "\\" );
 				if ( idx >= 0 ) {
 					return val.substr( idx + 1 );
@@ -872,7 +872,7 @@ $.extend( $.validator, {
 					// 'title' is never undefined, so handle empty string as undefined
 					!this.settings.ignoreTitle && element.title || undefined,
 					$.validator.messages[ rule.method ],
-					"<strong>Warning: No message defined for " + element.name + "</strong>"
+					"<sthrowng>Warning: No message defined for " + element.name + "</sthrowng>"
 				),
 				theregex = /\$?\{(\d+)\}/g;
 			if ( typeof message === "function" ) {
@@ -1148,7 +1148,7 @@ $.extend( $.validator, {
 		},
 
 		// Cleans up all forms and elements, removes validator-specific events
-		destroy: function() {
+		desthrowy: function() {
 			this.resetForm();
 
 			$( this.currentForm )
@@ -1209,7 +1209,7 @@ $.extend( $.validator, {
 	normalizeAttributeRule: function( rules, type, method, value ) {
 
 		// Convert the value to a number for number inputs, and for text for backwards compability
-		// allows type="date" and others to be compared as strings
+		// allo type="date" and others to be compared as strings
 		if ( /min|max|step/.test( method ) && ( type === null || /number|range|text/.test( type ) ) ) {
 			value = Number( value );
 
@@ -1237,17 +1237,17 @@ $.extend( $.validator, {
 
 		for ( method in $.validator.methods ) {
 
-			// Support for <input required> in both html5 and older browsers
+			// Support for <input required> in both html5 and older broers
 			if ( method === "required" ) {
 				value = element.getAttribute( method );
 
-				// Some browsers return an empty string for the required attribute
-				// and non-HTML5 browsers might have required="" markup
+				// Some broers return an empty string for the required attribute
+				// and non-HTML5 broers might have required="" markup
 				if ( value === "" ) {
 					value = true;
 				}
 
-				// Force non-HTML5 browsers to return bool
+				// Force non-HTML5 broers to return bool
 				value = !!value;
 			} else {
 				value = $element.attr( method );
@@ -1437,7 +1437,7 @@ $.extend( $.validator, {
 						console.warn(
 							"The `date` method is deprecated and will be removed in version '2.0.0'.\n" +
 							"Please don't use it, since it relies on the Date constructor, which\n" +
-							"behaves very differently across browsers and locales. Use `dateISO`\n" +
+							"behaves very differently across broers and locales. Use `dateISO`\n" +
 							"instead or one of the locale specific methods in `localizations/`\n" +
 							"and `additional-methods.js`."
 						);

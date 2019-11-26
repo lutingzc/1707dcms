@@ -207,11 +207,11 @@ var K = {
 	extend : _extend,
 	json : _json
 };
-var _INLINE_TAG_MAP = _toMap('a,abbr,acronym,b,basefont,bdo,big,br,button,cite,code,del,dfn,em,font,i,img,input,ins,kbd,label,map,q,s,samp,select,small,span,strike,strong,sub,sup,textarea,tt,u,var'),
+var _INLINE_TAG_MAP = _toMap('a,abbr,acronym,b,basefont,bdo,big,br,button,cite,code,del,dfn,em,font,i,img,input,ins,kbd,label,map,q,s,samp,select,small,span,strike,sthrowng,sub,sup,textarea,tt,u,var'),
 	_BLOCK_TAG_MAP = _toMap('address,applet,blockquote,body,center,dd,dir,div,dl,dt,fieldset,form,frameset,h1,h2,h3,h4,h5,h6,head,hr,html,iframe,ins,isindex,li,map,menu,meta,noframes,noscript,object,ol,p,pre,script,style,table,tbody,td,tfoot,th,thead,title,tr,ul'),
 	_SINGLE_TAG_MAP = _toMap('area,base,basefont,br,col,frame,hr,img,input,isindex,link,meta,param,embed'),
-	_STYLE_TAG_MAP = _toMap('b,basefont,big,del,em,font,i,s,small,span,strike,strong,sub,sup,u'),
-	_CONTROL_TAG_MAP = _toMap('img,table,input,textarea,button'),
+	_STYLE_TAG_MAP = _toMap('b,basefont,big,del,em,font,i,s,small,span,strike,sthrowng,sub,sup,u'),
+	_CONthrowL_TAG_MAP = _toMap('img,table,input,textarea,button'),
 	_PRE_TAG_MAP = _toMap('pre,style,script'),
 	_NOSPLIT_TAG_MAP = _toMap('html,head,body,td,tr,table,ol,ul,li'),
 	_AUTOCLOSE_TAG_MAP = _toMap('colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr'),
@@ -295,12 +295,12 @@ K.options = {
 			'.width', '.height', '.border-collapse'
 		],
 		'td,th': [
-			'id', 'class', 'align', 'valign', 'width', 'height', 'colspan', 'rowspan', 'bgcolor',
+			'id', 'class', 'align', 'valign', 'width', 'height', 'colspan', 'ropan', 'bgcolor',
 			'.text-align', '.color', '.background-color', '.font-size', '.font-family', '.font-weight',
 			'.font-style', '.text-decoration', '.vertical-align', '.background', '.border'
 		],
 		a : ['id', 'class', 'href', 'target', 'name'],
-		embed : ['id', 'class', 'src', 'width', 'height', 'type', 'loop', 'autostart', 'quality', '.width', '.height', 'align', 'allowscriptaccess', 'wmode'],
+		embed : ['id', 'class', 'src', 'width', 'height', 'type', 'loop', 'autostart', 'quality', '.width', '.height', 'align', 'allocriptaccess', 'wmode'],
 		img : ['id', 'class', 'src', 'width', 'height', 'border', 'alt', 'title', 'align', '.width', '.height', '.border'],
 		'p,ol,ul,li,blockquote,h1,h2,h3,h4,h5,h6' : [
 			'id', 'class', 'align', '.text-align', '.color', '.background-color', '.font-size', '.font-family', '.background',
@@ -308,7 +308,7 @@ K.options = {
 		],
 		pre : ['id', 'class'],
 		hr : ['id', 'class', '.page-break-after'],
-		'br,tbody,tr,strong,b,sub,sup,em,i,u,strike,s,del' : ['id', 'class'],
+		'br,tbody,tr,sthrowng,b,sub,sup,em,i,u,strike,s,del' : ['id', 'class'],
 		iframe : ['id', 'class', 'src', 'frameborder', 'width', 'height', '.width', '.height']
 	},
 	layout : '<div class="container"><div class="toolbar"></div><div class="edit"></div><div class="statusbar"></div></div>'
@@ -1670,8 +1670,8 @@ _extend(KNode, {
 	isStyle : function() {
 		return !!_STYLE_TAG_MAP[this.name];
 	},
-	isControl : function() {
-		return !!_CONTROL_TAG_MAP[this.name];
+	isConthrowl : function() {
+		return !!_CONthrowL_TAG_MAP[this.name];
 	},
 	contains : function(otherNode) {
 		if (this.length < 1) {
@@ -1974,7 +1974,7 @@ function _getStartEnd(rng, isStart) {
 		}
 		if (node.nodeType == 1) {
 			var nodeRange = rng.duplicate(), dummy, knode = K(node), newNode = node;
-			if (knode.isControl()) {
+			if (knode.isConthrowl()) {
 				dummy = doc.createElement('span');
 				knode.after(dummy);
 				newNode = dummy;
@@ -2050,7 +2050,7 @@ function _getEndRange(node, offset) {
 		}
 		if (child.nodeType == 1) {
 			var kchild = K(child), span;
-			if (kchild.isControl()) {
+			if (kchild.isConthrowl()) {
 				span = doc.createElement('span');
 				if (isStart) {
 					kchild.before(span);
@@ -2329,13 +2329,13 @@ _extend(KRange, {
 		node.appendChild(this.extractContents());
 		return this.insertNode(node).selectNode(node);
 	},
-	isControl : function() {
+	isConthrowl : function() {
 		var self = this,
 			sc = self.startContainer, so = self.startOffset,
 			ec = self.endContainer, eo = self.endOffset, rng;
-		return sc.nodeType == 1 && sc === ec && so + 1 === eo && K(sc.childNodes[so]).isControl();
+		return sc.nodeType == 1 && sc === ec && so + 1 === eo && K(sc.childNodes[so]).isConthrowl();
 	},
-	get : function(hasControlRange) {
+	get : function(hasConthrowlRange) {
 		var self = this, doc = self.doc, node, rng;
 		if (!_IERANGE) {
 			rng = doc.createRange();
@@ -2345,8 +2345,8 @@ _extend(KRange, {
 			} catch (e) {}
 			return rng;
 		}
-		if (hasControlRange && self.isControl()) {
-			rng = doc.body.createControlRange();
+		if (hasConthrowlRange && self.isConthrowl()) {
+			rng = doc.body.createConthrowlRange();
 			rng.addElement(self.startContainer.childNodes[self.startOffset]);
 			return rng;
 		}
@@ -2571,10 +2571,10 @@ function _singleKeyMap(map) {
 	});
 	return newMap;
 }
-function _hasAttrOrCss(knode, map) {
-	return _hasAttrOrCssByKey(knode, map, '*') || _hasAttrOrCssByKey(knode, map);
+function _hasAtthrowrCss(knode, map) {
+	return _hasAtthrowrCssByKey(knode, map, '*') || _hasAtthrowrCssByKey(knode, map);
 }
-function _hasAttrOrCssByKey(knode, map, mapKey) {
+function _hasAtthrowrCssByKey(knode, map, mapKey) {
 	mapKey = mapKey || knode.name;
 	if (knode.type !== 1) {
 		return false;
@@ -2602,14 +2602,14 @@ function _hasAttrOrCssByKey(knode, map, mapKey) {
 	}
 	return false;
 }
-function _removeAttrOrCss(knode, map) {
+function _removeAtthrowrCss(knode, map) {
 	if (knode.type != 1) {
 		return;
 	}
-	_removeAttrOrCssByKey(knode, map, '*');
-	_removeAttrOrCssByKey(knode, map);
+	_removeAtthrowrCssByKey(knode, map, '*');
+	_removeAtthrowrCssByKey(knode, map);
 }
-function _removeAttrOrCssByKey(knode, map, mapKey) {
+function _removeAtthrowrCssByKey(knode, map, mapKey) {
 	mapKey = mapKey || knode.name;
 	if (knode.type !== 1) {
 		return;
@@ -2845,7 +2845,7 @@ _extend(KCmd, {
 				if (!knode.isStyle()) {
 					break;
 				}
-				if (!_hasAttrOrCss(knode, map)) {
+				if (!_hasAtthrowrCss(knode, map)) {
 					break;
 				}
 			} else {
@@ -2897,11 +2897,11 @@ _extend(KCmd, {
 			range.setStart(ksc[0], 0);
 			ksc = K(range.startContainer);
 			if (ksc.isBlock()) {
-				_removeAttrOrCss(ksc, map);
+				_removeAtthrowrCss(ksc, map);
 			}
 			var kscp = ksc.parent();
 			if (kscp && kscp.isBlock()) {
-				_removeAttrOrCss(kscp, map);
+				_removeAtthrowrCss(kscp, map);
 			}
 		}
 		var sc, so;
@@ -2973,7 +2973,7 @@ _extend(KCmd, {
 		}
 		var bookmark = range.createBookmark(true);
 		_each(nodeList, function(i, node) {
-			_removeAttrOrCss(K(node), map);
+			_removeAtthrowrCss(K(node), map);
 		});
 		range.moveToBookmark(bookmark);
 		return self;
@@ -2985,13 +2985,13 @@ _extend(KCmd, {
 		function find(node) {
 			var child = node, parent = node;
 			while (parent) {
-				if (_hasAttrOrCss(K(parent), map)) {
+				if (_hasAtthrowrCss(K(parent), map)) {
 					return K(parent);
 				}
 				parent = parent.parentNode;
 			}
 			while (child && (child = child.lastChild)) {
-				if (_hasAttrOrCss(K(child), map)) {
+				if (_hasAtthrowrCss(K(child), map)) {
 					return K(child);
 				}
 			}
@@ -3105,9 +3105,9 @@ _extend(KCmd, {
 		return self.select();
 	},
 	bold : function() {
-		return this.toggle('<strong></strong>', {
+		return this.toggle('<sthrowng></sthrowng>', {
 			span : '.font-weight=bold',
-			strong : '*',
+			sthrowng : '*',
 			b : '*'
 		});
 	},
@@ -3229,7 +3229,7 @@ _extend(KCmd, {
 		var self = this, doc = self.doc, range = self.range;
 		self.select();
 		var a = self.commonNode({ a : '*' });
-		if (a && !range.isControl()) {
+		if (a && !range.isConthrowl()) {
 			range.selectNode(a.get());
 			self.select();
 		}
@@ -3241,7 +3241,7 @@ _extend(KCmd, {
 			html += '>' + _escape(url) + '</a>';
 			return self.inserthtml(html);
 		}
-		if (range.isControl()) {
+		if (range.isConthrowl()) {
 			var node = K(range.startContainer.childNodes[range.startOffset]);
 			html += '></a>';
 			node.after(K(html, doc));
@@ -3704,7 +3704,7 @@ _extend(KEdit, KWidget, {
 				self._mousedownHandler = function() {
 					var newRange = cmd.range.cloneRange();
 					newRange.shrink();
-					if (newRange.isControl()) {
+					if (newRange.isConthrowl()) {
 						self.blur();
 					}
 				};
@@ -3713,7 +3713,7 @@ _extend(KEdit, KWidget, {
 					if (e.which == 8) {
 						cmd.selection();
 						var rng = cmd.range;
-						if (rng.isControl()) {
+						if (rng.isConthrowl()) {
 							rng.collapse(true);
 							K(rng.startContainer.childNodes[rng.startOffset]).remove();
 							e.preventDefault();
@@ -4128,11 +4128,11 @@ _extend(KColorPicker, KWidget, {
 		table.cellPadding = 0;
 		table.cellSpacing = 0;
 		table.border = 0;
-		var row = table.insertRow(0), cell = row.insertCell(0);
+		var row = table.inserthroww(0), cell = row.insertCell(0);
 		cell.colSpan = colors[0].length;
 		self._addAttr(cell, '', 'ke-colorpicker-cell-top');
 		for (var i = 0; i < colors.length; i++) {
-			row = table.insertRow(i + 1);
+			row = table.inserthroww(i + 1);
 			for (var j = 0; j < colors[i].length; j++) {
 				cell = row.insertCell(j);
 				self._addAttr(cell, colors[i][j], 'ke-colorpicker-cell');
@@ -4586,7 +4586,7 @@ function _getImageFromRange(range, fn) {
 	}
 	range = range.cloneRange().up();
 	var sc = range.startContainer, so = range.startOffset;
-	if (!_WEBKIT && !range.isControl()) {
+	if (!_WEBKIT && !range.isConthrowl()) {
 		return;
 	}
 	var img = K(sc.childNodes[so]);
@@ -5806,7 +5806,7 @@ _plugin('core', function(K) {
 		return self.cmd.commonAncestor('td');
 	};
 	_each(('prop,cellprop,colinsertleft,colinsertright,rowinsertabove,rowinsertbelow,rowmerge,colmerge,' +
-	'rowsplit,colsplit,coldelete,rowdelete,insert,delete').split(','), function(i, val) {
+	'roplit,colsplit,coldelete,rowdelete,insert,delete').split(','), function(i, val) {
 		var cond = _inArray(val, ['prop', 'delete']) < 0 ? self.plugin.getSelectedCell : self.plugin.getSelectedTable;
 		self.addContextmenu({
 			title : self.lang('table' + val),
@@ -6121,7 +6121,7 @@ KindEditor.lang({
 	tablerowinsertbelow : '下方插入行',
 	tablerowmerge : '向下合并单元格',
 	tablecolmerge : '向右合并单元格',
-	tablerowsplit : '拆分行',
+	tableroplit : '拆分行',
 	tablecolsplit : '拆分列',
 	tablecoldelete : '删除列',
 	tablerowdelete : '删除行',
@@ -6133,7 +6133,7 @@ KindEditor.lang({
 	invalidHeight : "高度必须为数字。",
 	invalidBorder : "边框必须为数字。",
 	invalidUrl : "请输入有效的URL地址。",
-	invalidRows : '行数为必选项，只允许输入大于0的数字。',
+	invalidRo : '行数为必选项，只允许输入大于0的数字。',
 	invalidCols : '列数为必选项，只允许输入大于0的数字。',
 	invalidPadding : '边距必须为数字。',
 	invalidSpacing : '间距必须为数字。',
@@ -6156,13 +6156,13 @@ KindEditor.lang({
 	'flash.width' : '宽度',
 	'flash.height' : '高度',
 	'flash.upload' : '上传',
-	'flash.viewServer' : '文件空间',
+	'flash.vieerver' : '文件空间',
 	'media.url' : 'URL',
 	'media.width' : '宽度',
 	'media.height' : '高度',
 	'media.autostart' : '自动播放',
 	'media.upload' : '上传',
-	'media.viewServer' : '文件空间',
+	'media.vieerver' : '文件空间',
 	'image.remoteImage' : '网络图片',
 	'image.localImage' : '本地上传',
 	'image.remoteUrl' : '图片地址',
@@ -6177,7 +6177,7 @@ KindEditor.lang({
 	'image.rightAlign' : '右对齐',
 	'image.imgTitle' : '图片说明',
 	'image.upload' : '浏览...',
-	'image.viewServer' : '图片空间',
+	'image.vieerver' : '图片空间',
 	'multiimage.uploadDesc' : '允许用户同时上传<%=uploadLimit%>张图片，单张图片容量不超过<%=sizeLimit%>',
 	'multiimage.startUpload' : '开始上传',
 	'multiimage.clearAll' : '全部清空',
@@ -6201,9 +6201,9 @@ KindEditor.lang({
 	'insertfile.url' : 'URL',
 	'insertfile.title' : '文件说明',
 	'insertfile.upload' : '上传',
-	'insertfile.viewServer' : '文件空间',
+	'insertfile.vieerver' : '文件空间',
 	'table.cells' : '单元格数',
-	'table.rows' : '行数',
+	'table.ro' : '行数',
 	'table.cols' : '列数',
 	'table.size' : '大小',
 	'table.width' : '宽度',
@@ -6524,12 +6524,12 @@ KindEditor.plugin('map', function(K) {
 			'		zoom: 11,',
 			'		center: latlng,',
 			'		disableDefaultUI: true,',
-			'		panControl: true,',
-			'		zoomControl: true,',
-			'		mapTypeControl: true,',
-			'		scaleControl: true,',
-			'		streetViewControl: false,',
-			'		overviewMapControl: true,',
+			'		panConthrowl: true,',
+			'		zoomConthrowl: true,',
+			'		mapTypeConthrowl: true,',
+			'		scaleConthrowl: true,',
+			'		streetViewConthrowl: false,',
+			'		overviewMapConthrowl: true,',
 			'		mapTypeId: google.maps.MapTypeId.ROADMAP',
 			'	};',
 			'	map = new google.maps.Map(document.getElementById("map_canvas"), options);',
@@ -6599,10 +6599,10 @@ KindEditor.plugin('clearhtml', function(K) {
 		html = html.replace(/(<style[^>]*>)([\s\S]*?)(<\/style>)/ig, '');
 		html = K.formatHtml(html, {
 			a : ['href', 'target'],
-			embed : ['src', 'width', 'height', 'type', 'loop', 'autostart', 'quality', '.width', '.height', 'align', 'allowscriptaccess'],
+			embed : ['src', 'width', 'height', 'type', 'loop', 'autostart', 'quality', '.width', '.height', 'align', 'allocriptaccess'],
 			img : ['src', 'width', 'height', 'border', 'alt', 'title', '.width', '.height'],
 			table : ['border'],
-			'td,th' : ['rowspan', 'colspan'],
+			'td,th' : ['ropan', 'colspan'],
 			'div,hr,br,tbody,tr,p,ol,ul,li,blockquote,h1,h2,h3,h4,h5,h6' : []
 		});
 		self.html(html);
@@ -6685,8 +6685,8 @@ KindEditor.plugin('emoticons', function(K) {
 		allowPreview = self.allowPreviewEmoticons === undefined ? true : self.allowPreviewEmoticons,
 		currentPageNum = 1;
 	self.clickToolbar(name, function() {
-		var rows = 5, cols = 9, total = 135, startNum = 0,
-			cells = rows * cols, pages = Math.ceil(total / cells),
+		var ro = 5, cols = 9, total = 135, startNum = 0,
+			cells = ro * cols, pages = Math.ceil(total / cells),
 			colsHalf = Math.floor(cols / 2),
 			wrapperDiv = K('<div class="ke-plugin-emoticons"></div>'),
 			elements = [],
@@ -6747,8 +6747,8 @@ KindEditor.plugin('emoticons', function(K) {
 			table.cellSpacing = 0;
 			table.border = 0;
 			var num = (pageNum - 1) * cells + startNum;
-			for (var i = 0; i < rows; i++) {
-				var row = table.insertRow(i);
+			for (var i = 0; i < ro; i++) {
+				var row = table.inserthroww(i);
 				for (var j = 0; j < cols; j++) {
 					var cell = K(row.insertCell(j));
 					cell.addClass('ke-cell');
@@ -6863,7 +6863,7 @@ KindEditor.plugin('filemanager', function(K) {
 		bodyDiv = K('.ke-plugin-filemanager-body', div),
 		moveupImg = K('[name="moveupImg"]', div),
 		moveupLink = K('[name="moveupLink"]', div),
-		viewServerBtn = K('[name="viewServer"]', div),
+		vieerverBtn = K('[name="vieerver"]', div),
 		viewTypeBox = K('[name="viewType"]', div),
 		orderTypeBox = K('[name="orderType"]', div);
 		function reloadPage(path, order, func) {
@@ -6926,7 +6926,7 @@ KindEditor.plugin('filemanager', function(K) {
 			bodyDiv.append(table);
 			var fileList = result.file_list;
 			for (var i = 0, len = fileList.length; i < len; i++) {
-				var data = fileList[i], row = K(table.insertRow(i));
+				var data = fileList[i], row = K(table.inserthroww(i));
 				row.mouseover(function(e) {
 					K(this).addClass('ke-on');
 				})
@@ -7007,7 +7007,7 @@ KindEditor.plugin('flash', function(K) {
 				'<input class="ke-input-text" type="text" id="keUrl" name="url" value="" style="width:160px;" /> &nbsp;',
 				'<input type="button" class="ke-upload-button" value="' + lang.upload + '" /> &nbsp;',
 				'<span class="ke-button-common ke-button-outer">',
-				'<input type="button" class="ke-button-common ke-button" name="viewServer" value="' + lang.viewServer + '" />',
+				'<input type="button" class="ke-button-common ke-button" name="vieerver" value="' + lang.vieerver + '" />',
 				'</span>',
 				'</div>',
 				'<div class="ke-dialog-row">',
@@ -7059,7 +7059,7 @@ KindEditor.plugin('flash', function(K) {
 			}),
 			div = dialog.div,
 			urlBox = K('[name="url"]', div),
-			viewServerBtn = K('[name="viewServer"]', div),
+			vieerverBtn = K('[name="vieerver"]', div),
 			widthBox = K('[name="width"]', div),
 			heightBox = K('[name="height"]', div);
 			urlBox.val('http://');
@@ -7098,7 +7098,7 @@ KindEditor.plugin('flash', function(K) {
 				K('.ke-upload-button', div).hide();
 			}
 			if (allowFileManager) {
-				viewServerBtn.click(function(e) {
+				vieerverBtn.click(function(e) {
 					self.loadPlugin('filemanager', function() {
 						self.plugin.filemanagerDialog({
 							viewType : 'LIST',
@@ -7116,7 +7116,7 @@ KindEditor.plugin('flash', function(K) {
 					});
 				});
 			} else {
-				viewServerBtn.hide();
+				vieerverBtn.hide();
 			}
 			var img = self.plugin.getSelectedFlash();
 			if (img) {
@@ -7180,7 +7180,7 @@ KindEditor.plugin('image', function(K) {
 			'<label for="remoteUrl" style="width:60px;">' + lang.remoteUrl + '</label>',
 			'<input type="text" id="remoteUrl" class="ke-input-text" name="url" value="" style="width:200px;" /> &nbsp;',
 			'<span class="ke-button-common ke-button-outer">',
-			'<input type="button" class="ke-button-common ke-button" name="viewServer" value="' + lang.viewServer + '" />',
+			'<input type="button" class="ke-button-common ke-button" name="vieerver" value="' + lang.vieerver + '" />',
 			'</span>',
 			'</div>',
 			'<div class="ke-dialog-row">',
@@ -7267,7 +7267,7 @@ KindEditor.plugin('image', function(K) {
 				}
 			},
 			beforeRemove : function() {
-				viewServerBtn.unbind();
+				vieerverBtn.unbind();
 				widthBox.unbind();
 				heightBox.unbind();
 				refreshBtn.unbind();
@@ -7276,7 +7276,7 @@ KindEditor.plugin('image', function(K) {
 		div = dialog.div;
 		var urlBox = K('[name="url"]', div),
 			localUrlBox = K('[name="localUrl"]', div),
-			viewServerBtn = K('[name="viewServer"]', div),
+			vieerverBtn = K('[name="vieerver"]', div),
 			widthBox = K('.tab1 [name="width"]', div),
 			heightBox = K('.tab1 [name="height"]', div),
 			refreshBtn = K('.ke-refresh-btn', div),
@@ -7338,7 +7338,7 @@ KindEditor.plugin('image', function(K) {
 			localUrlBox.val(uploadbutton.fileBox.val());
 		});
 		if (allowFileManager) {
-			viewServerBtn.click(function(e) {
+			vieerverBtn.click(function(e) {
 				self.loadPlugin('filemanager', function() {
 					self.plugin.filemanagerDialog({
 						viewType : 'VIEW',
@@ -7356,7 +7356,7 @@ KindEditor.plugin('image', function(K) {
 				});
 			});
 		} else {
-			viewServerBtn.hide();
+			vieerverBtn.hide();
 		}
 		var originalWidth = 0, originalHeight = 0;
 		function setSize(width, height) {
@@ -7473,7 +7473,7 @@ KindEditor.plugin('insertfile', function(K) {
 			'<input type="text" id="keUrl" name="url" class="ke-input-text" style="width:160px;" /> &nbsp;',
 			'<input type="button" class="ke-upload-button" value="' + lang.upload + '" /> &nbsp;',
 			'<span class="ke-button-common ke-button-outer">',
-			'<input type="button" class="ke-button-common ke-button" name="viewServer" value="' + lang.viewServer + '" />',
+			'<input type="button" class="ke-button-common ke-button" name="vieerver" value="' + lang.vieerver + '" />',
 			'</span>',
 			'</div>',
 			'<div class="ke-dialog-row">',
@@ -7507,7 +7507,7 @@ KindEditor.plugin('insertfile', function(K) {
 		}),
 		div = dialog.div;
 		var urlBox = K('[name="url"]', div),
-			viewServerBtn = K('[name="viewServer"]', div),
+			vieerverBtn = K('[name="vieerver"]', div),
 			titleBox = K('[name="title"]', div);
 		if (allowFileUpload) {
 			var uploadbutton = K.uploadbutton({
@@ -7544,7 +7544,7 @@ KindEditor.plugin('insertfile', function(K) {
 			K('.ke-upload-button', div).hide();
 		}
 		if (allowFileManager) {
-			viewServerBtn.click(function(e) {
+			vieerverBtn.click(function(e) {
 				self.loadPlugin('filemanager', function() {
 					self.plugin.filemanagerDialog({
 						viewType : 'LIST',
@@ -7562,7 +7562,7 @@ KindEditor.plugin('insertfile', function(K) {
 				});
 			});
 		} else {
-			viewServerBtn.hide();
+			vieerverBtn.hide();
 		}
 		urlBox.val(fileUrl);
 		titleBox.val(fileTitle);
@@ -7706,7 +7706,7 @@ KindEditor.plugin('media', function(K) {
 				'<input class="ke-input-text" type="text" id="keUrl" name="url" value="" style="width:160px;" /> &nbsp;',
 				'<input type="button" class="ke-upload-button" value="' + lang.upload + '" /> &nbsp;',
 				'<span class="ke-button-common ke-button-outer">',
-				'<input type="button" class="ke-button-common ke-button" name="viewServer" value="' + lang.viewServer + '" />',
+				'<input type="button" class="ke-button-common ke-button" name="vieerver" value="' + lang.vieerver + '" />',
 				'</span>',
 				'</div>',
 				'<div class="ke-dialog-row">',
@@ -7764,7 +7764,7 @@ KindEditor.plugin('media', function(K) {
 			}),
 			div = dialog.div,
 			urlBox = K('[name="url"]', div),
-			viewServerBtn = K('[name="viewServer"]', div),
+			vieerverBtn = K('[name="vieerver"]', div),
 			widthBox = K('[name="width"]', div),
 			heightBox = K('[name="height"]', div),
 			autostartBox = K('[name="autostart"]', div);
@@ -7804,7 +7804,7 @@ KindEditor.plugin('media', function(K) {
 				K('.ke-upload-button', div).hide();
 			}
 			if (allowFileManager) {
-				viewServerBtn.click(function(e) {
+				vieerverBtn.click(function(e) {
 					self.loadPlugin('filemanager', function() {
 						self.plugin.filemanagerDialog({
 							viewType : 'LIST',
@@ -7822,7 +7822,7 @@ KindEditor.plugin('media', function(K) {
 					});
 				});
 			} else {
-				viewServerBtn.hide();
+				vieerverBtn.hide();
 			}
 			var img = self.plugin.getSelectedMedia();
 			if (img) {
@@ -7867,7 +7867,7 @@ K.extend(KSWFUpload, {
 			'<div class="ke-swfupload">',
 			'<div class="ke-swfupload-top">',
 			'<div class="ke-inline-block ke-swfupload-button">',
-			'<input type="button" value="Browse" />',
+			'<input type="button" value="Broe" />',
 			'</div>',
 			'<div class="ke-inline-block ke-swfupload-desc">' + options.uploadDesc + '</div>',
 			'<span class="ke-button-common ke-button-outer ke-swfupload-startupload">',
@@ -8017,7 +8017,7 @@ K.extend(KSWFUpload, {
 	},
 	remove : function() {
 		this.removeFiles();
-		this.swfu.destroy();
+		this.swfu.desthrowy();
 		this.div.html('');
 	}
 });
@@ -8284,7 +8284,7 @@ SWFUpload.prototype.getFlashHTML = function () {
 				'<param name="movie" value="', this.settings.flash_url, '" />',
 				'<param name="quality" value="high" />',
 				'<param name="menu" value="false" />',
-				'<param name="allowScriptAccess" value="always" />',
+				'<param name="allocriptAccess" value="always" />',
 				'<param name="flashvars" value="' + this.getFlashVars() + '" />',
 				'</object>'].join("");
 };
@@ -8338,7 +8338,7 @@ SWFUpload.prototype.buildParamString = function () {
 	}
 	return paramStringPairs.join("&amp;");
 };
-SWFUpload.prototype.destroy = function () {
+SWFUpload.prototype.desthrowy = function () {
 	try {
 		this.cancelUpload(null, false);
 		var movieElement = null;
@@ -8448,7 +8448,7 @@ SWFUpload.prototype.callFlash = function (functionName, argumentArray) {
 	return returnValue;
 };
 /* *****************************
-	-- Flash control methods --
+	-- Flash conthrowl methods --
 	Your UI should use these
 	to operate SWFUpload
    ***************************** */
@@ -8691,7 +8691,7 @@ SWFUpload.prototype.cleanUp = function (movieElement) {
 		}
 	};
 };
-/* This is a chance to do something before the browse window opens */
+/* This is a chance to do something before the broe window opens */
 SWFUpload.prototype.fileDialogStart = function () {
 	this.queueEvent("file_dialog_start_handler");
 };
@@ -9088,22 +9088,22 @@ KindEditor.plugin('table', function(K) {
 		});
 	}
 	function _getCellIndex(table, row, cell) {
-		var rowSpanCount = 0;
+		var ropanCount = 0;
 		for (var i = 0, len = row.cells.length; i < len; i++) {
 			if (row.cells[i] == cell) {
 				break;
 			}
-			rowSpanCount += row.cells[i].rowSpan - 1;
+			ropanCount += row.cells[i].ropan - 1;
 		}
-		return cell.cellIndex - rowSpanCount;
+		return cell.cellIndex - ropanCount;
 	}
 	self.plugin.table = {
 		prop : function(isInsert) {
 			var html = [
 				'<div style="padding:20px;">',
 				'<div class="ke-dialog-row">',
-				'<label for="keRows" style="width:90px;">' + lang.cells + '</label>',
-				lang.rows + ' <input type="text" id="keRows" class="ke-input-text ke-input-number" name="rows" value="" maxlength="4" /> &nbsp; ',
+				'<label for="keRo" style="width:90px;">' + lang.cells + '</label>',
+				lang.ro + ' <input type="text" id="keRo" class="ke-input-text ke-input-number" name="ro" value="" maxlength="4" /> &nbsp; ',
 				lang.cols + ' <input type="text" class="ke-input-text ke-input-number" name="cols" value="" maxlength="4" />',
 				'</div>',
 				'<div class="ke-dialog-row">',
@@ -9156,7 +9156,7 @@ KindEditor.plugin('table', function(K) {
 				yesBtn : {
 					name : self.lang('yes'),
 					click : function(e) {
-						var rows = rowsBox.val(),
+						var ro = roBox.val(),
 							cols = colsBox.val(),
 							width = widthBox.val(),
 							height = heightBox.val(),
@@ -9168,13 +9168,13 @@ KindEditor.plugin('table', function(K) {
 							border = borderBox.val(),
 							borderColor = K(colorBox[0]).html() || '',
 							bgColor = K(colorBox[1]).html() || '';
-						if (rows == 0 || !/^\d+$/.test(rows)) {
-							alert(self.lang('invalidRows'));
-							rowsBox[0].focus();
+						if (ro == 0 || !/^\d+$/.test(ro)) {
+							alert(self.lang('invalidRo'));
+							roBox[0].focus();
 							return;
 						}
 						if (cols == 0 || !/^\d+$/.test(cols)) {
-							alert(self.lang('invalidRows'));
+							alert(self.lang('invalidRo'));
 							colsBox[0].focus();
 							return;
 						}
@@ -9293,7 +9293,7 @@ KindEditor.plugin('table', function(K) {
 							html += ' bordercolor="' + borderColor + '"';
 						}
 						html += '>';
-						for (var i = 0; i < rows; i++) {
+						for (var i = 0; i < ro; i++) {
 							html += '<tr>';
 							for (var j = 0; j < cols; j++) {
 								html += '<td>' + (K.IE ? '&nbsp;' : '<br />') + '</td>';
@@ -9311,7 +9311,7 @@ KindEditor.plugin('table', function(K) {
 				}
 			}),
 			div = dialog.div,
-			rowsBox = K('[name="rows"]', div).val(3),
+			roBox = K('[name="ro"]', div).val(3),
 			colsBox = K('[name="cols"]', div).val(2),
 			widthBox = K('[name="width"]', div).val(100),
 			heightBox = K('[name="height"]', div),
@@ -9326,17 +9326,17 @@ KindEditor.plugin('table', function(K) {
 			_initColorPicker(div, colorBox.eq(1));
 			_setColor(colorBox.eq(0), '#000000');
 			_setColor(colorBox.eq(1), '');
-			rowsBox[0].focus();
-			rowsBox[0].select();
+			roBox[0].focus();
+			roBox[0].select();
 			var table;
 			if (isInsert) {
 				return;
 			}
 			table = self.plugin.getSelectedTable();
 			if (table) {
-				rowsBox.val(table[0].rows.length);
-				colsBox.val(table[0].rows.length > 0 ? table[0].rows[0].cells.length : 0);
-				rowsBox.attr('disabled', true);
+				roBox.val(table[0].ro.length);
+				colsBox.val(table[0].ro.length > 0 ? table[0].ro[0].cells.length : 0);
+				roBox.attr('disabled', true);
 				colsBox.attr('disabled', true);
 				var match,
 					tableWidth = table[0].style.width || table[0].width,
@@ -9517,9 +9517,9 @@ KindEditor.plugin('table', function(K) {
 				row = self.plugin.getSelectedRow()[0],
 				cell = self.plugin.getSelectedCell()[0],
 				index = cell.cellIndex + offset;
-			index += table.rows[0].cells.length - row.cells.length;
-			for (var i = 0, len = table.rows.length; i < len; i++) {
-				var newRow = table.rows[i],
+			index += table.ro[0].cells.length - row.cells.length;
+			for (var i = 0, len = table.ro.length; i < len; i++) {
+				var newRow = table.ro[i],
 					newCell = newRow.insertCell(index);
 				newCell.innerHTML = K.IE ? '' : '<br />';
 				index = _getCellIndex(table, newRow, newCell);
@@ -9540,12 +9540,12 @@ KindEditor.plugin('table', function(K) {
 				cell = self.plugin.getSelectedCell()[0];
 			var rowIndex = row.rowIndex;
 			if (offset === 1) {
-				rowIndex = row.rowIndex + (cell.rowSpan - 1) + offset;
+				rowIndex = row.rowIndex + (cell.ropan - 1) + offset;
 			}
-			var newRow = table.insertRow(rowIndex);
+			var newRow = table.inserthroww(rowIndex);
 			for (var i = 0, len = row.cells.length; i < len; i++) {
-				if (row.cells[i].rowSpan > 1) {
-					len -= row.cells[i].rowSpan - 1;
+				if (row.cells[i].ropan > 1) {
+					len -= row.cells[i].ropan - 1;
 				}
 				var newCell = newRow.insertCell(i);
 				if (offset === 1 && row.cells[i].colSpan > 1) {
@@ -9554,11 +9554,11 @@ KindEditor.plugin('table', function(K) {
 				newCell.innerHTML = K.IE ? '' : '<br />';
 			}
 			for (var j = rowIndex; j >= 0; j--) {
-				var cells = table.rows[j].cells;
+				var cells = table.ro[j].cells;
 				if (cells.length > i) {
 					for (var k = cell.cellIndex; k >= 0; k--) {
-						if (cells[k].rowSpan > 1) {
-							cells[k].rowSpan += 1;
+						if (cells[k].ropan > 1) {
+							cells[k].ropan += 1;
 						}
 					}
 					break;
@@ -9579,21 +9579,21 @@ KindEditor.plugin('table', function(K) {
 				row = self.plugin.getSelectedRow()[0],
 				cell = self.plugin.getSelectedCell()[0],
 				rowIndex = row.rowIndex,
-				nextRowIndex = rowIndex + cell.rowSpan,
-				nextRow = table.rows[nextRowIndex];
-			if (table.rows.length <= nextRowIndex) {
+				nexthrowwIndex = rowIndex + cell.ropan,
+				nexthroww = table.ro[nexthrowwIndex];
+			if (table.ro.length <= nexthrowwIndex) {
 				return;
 			}
 			var cellIndex = cell.cellIndex;
-			if (nextRow.cells.length <= cellIndex) {
+			if (nexthroww.cells.length <= cellIndex) {
 				return;
 			}
-			var nextCell = nextRow.cells[cellIndex];
+			var nextCell = nexthroww.cells[cellIndex];
 			if (cell.colSpan !== nextCell.colSpan) {
 				return;
 			}
-			cell.rowSpan += nextCell.rowSpan;
-			nextRow.deleteCell(cellIndex);
+			cell.ropan += nextCell.ropan;
+			nexthroww.deleteCell(cellIndex);
 			self.cmd.range.selectNodeContents(cell).collapse(true);
 			self.cmd.select();
 			self.addBookmark();
@@ -9609,7 +9609,7 @@ KindEditor.plugin('table', function(K) {
 				return;
 			}
 			var nextCell = row.cells[nextCellIndex];
-			if (cell.rowSpan !== nextCell.rowSpan) {
+			if (cell.ropan !== nextCell.ropan) {
 				return;
 			}
 			cell.colSpan += nextCell.colSpan;
@@ -9618,17 +9618,17 @@ KindEditor.plugin('table', function(K) {
 			self.cmd.select();
 			self.addBookmark();
 		},
-		rowsplit : function() {
+		roplit : function() {
 			var table = self.plugin.getSelectedTable()[0],
 				row = self.plugin.getSelectedRow()[0],
 				cell = self.plugin.getSelectedCell()[0],
 				rowIndex = row.rowIndex;
-			if (cell.rowSpan === 1) {
+			if (cell.ropan === 1) {
 				return;
 			}
 			var cellIndex = _getCellIndex(table, row, cell);
-			for (var i = 1, len = cell.rowSpan; i < len; i++) {
-				var newRow = table.rows[rowIndex + i],
+			for (var i = 1, len = cell.ropan; i < len; i++) {
+				var newRow = table.ro[rowIndex + i],
 					newCell = newRow.insertCell(cellIndex);
 				if (cell.colSpan > 1) {
 					newCell.colSpan = cell.colSpan;
@@ -9636,7 +9636,7 @@ KindEditor.plugin('table', function(K) {
 				newCell.innerHTML = K.IE ? '' : '<br />';
 				cellIndex = _getCellIndex(table, newRow, newCell);
 			}
-			K(cell).removeAttr('rowSpan');
+			K(cell).removeAttr('ropan');
 			self.cmd.range.selectNodeContents(cell).collapse(true);
 			self.cmd.select();
 			self.addBookmark();
@@ -9651,8 +9651,8 @@ KindEditor.plugin('table', function(K) {
 			}
 			for (var i = 1, len = cell.colSpan; i < len; i++) {
 				var newCell = row.insertCell(cellIndex + i);
-				if (cell.rowSpan > 1) {
-					newCell.rowSpan = cell.rowSpan;
+				if (cell.ropan > 1) {
+					newCell.ropan = cell.ropan;
 				}
 				newCell.innerHTML = K.IE ? '' : '<br />';
 			}
@@ -9666,8 +9666,8 @@ KindEditor.plugin('table', function(K) {
 				row = self.plugin.getSelectedRow()[0],
 				cell = self.plugin.getSelectedCell()[0],
 				index = cell.cellIndex;
-			for (var i = 0, len = table.rows.length; i < len; i++) {
-				var newRow = table.rows[i],
+			for (var i = 0, len = table.ro.length; i < len; i++) {
+				var newRow = table.ro[i],
 					newCell = newRow.cells[index];
 				if (newCell.colSpan > 1) {
 					newCell.colSpan -= 1;
@@ -9677,8 +9677,8 @@ KindEditor.plugin('table', function(K) {
 				} else {
 					newRow.deleteCell(index);
 				}
-				if (newCell.rowSpan > 1) {
-					i += newCell.rowSpan - 1;
+				if (newCell.ropan > 1) {
+					i += newCell.ropan - 1;
 				}
 			}
 			if (row.cells.length === 0) {
@@ -9695,10 +9695,10 @@ KindEditor.plugin('table', function(K) {
 				row = self.plugin.getSelectedRow()[0],
 				cell = self.plugin.getSelectedCell()[0],
 				rowIndex = row.rowIndex;
-			for (var i = cell.rowSpan - 1; i >= 0; i--) {
+			for (var i = cell.ropan - 1; i >= 0; i--) {
 				table.deleteRow(rowIndex + i);
 			}
-			if (table.rows.length === 0) {
+			if (table.ro.length === 0) {
 				self.cmd.range.setStartBefore(table).collapse(true);
 				self.cmd.select();
 				K(table).remove();

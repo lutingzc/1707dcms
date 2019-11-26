@@ -26,7 +26,7 @@ K.extend(KSWFUpload, {
 			'<div class="ke-swfupload">',
 			'<div class="ke-swfupload-top">',
 			'<div class="ke-inline-block ke-swfupload-button">',
-			'<input type="button" value="Browse" />',
+			'<input type="button" value="Broe" />',
 			'</div>',
 			'<div class="ke-inline-block ke-swfupload-desc">' + options.uploadDesc + '</div>',
 			'<span class="ke-button-common ke-button-outer ke-swfupload-startupload">',
@@ -184,7 +184,7 @@ K.extend(KSWFUpload, {
 	},
 	remove : function() {
 		this.removeFiles();
-		this.swfu.destroy();
+		this.swfu.desthrowy();
 		this.div.html('');
 	}
 });
@@ -327,7 +327,7 @@ SWFUpload.prototype.initSWFUpload = function (settings) {
 		this.movieElement = null;
 
 
-		// Setup global control tracking
+		// Setup global conthrowl tracking
 		SWFUpload.instances[this.movieName] = this;
 
 		// Load the settings.  Load the Flash movie.
@@ -511,7 +511,7 @@ SWFUpload.prototype.loadFlash = function () {
 
 	// Append the container and load the flash
 	tempParent = document.createElement("div");
-	tempParent.innerHTML = this.getFlashHTML();	// Using innerHTML is non-standard but the only sensible way to dynamically add Flash in IE (and maybe other browsers)
+	tempParent.innerHTML = this.getFlashHTML();	// Using innerHTML is non-standard but the only sensible way to dynamically add Flash in IE (and maybe other broers)
 	targetElement.parentNode.replaceChild(tempParent.firstChild, targetElement);
 
 	// Fix IE Flash/Form bug
@@ -535,7 +535,7 @@ SWFUpload.prototype.getFlashHTML = function () {
 				'<param name="movie" value="', this.settings.flash_url, '" />',
 				'<param name="quality" value="high" />',
 				'<param name="menu" value="false" />',
-				'<param name="allowScriptAccess" value="always" />',
+				'<param name="allocriptAccess" value="always" />',
 				'<param name="flashvars" value="' + this.getFlashVars() + '" />',
 				'</object>'].join("");
 };
@@ -608,9 +608,9 @@ SWFUpload.prototype.buildParamString = function () {
 
 // Public: Used to remove a SWFUpload instance from the page. This method strives to remove
 // all references to the SWF, and other objects so memory is properly freed.
-// Returns true if everything was destroyed. Returns a false if a failure occurs leaving SWFUpload in an inconsistant state.
+// Returns true if everything was desthrowyed. Returns a false if a failure occurs leaving SWFUpload in an inconsistant state.
 // Credits: Major improvements provided by steffen
-SWFUpload.prototype.destroy = function () {
+SWFUpload.prototype.desthrowy = function () {
 	try {
 		// Make sure Flash is done before we try to remove it
 		this.cancelUpload(null, false);
@@ -639,7 +639,7 @@ SWFUpload.prototype.destroy = function () {
 		// Remove IE form fix reference
 		window[this.movieName] = null;
 
-		// Destroy other references
+		// Desthrowy other references
 		SWFUpload.instances[this.movieName] = null;
 		delete SWFUpload.instances[this.movieName];
 
@@ -762,21 +762,21 @@ SWFUpload.prototype.callFlash = function (functionName, argumentArray) {
 };
 
 /* *****************************
-	-- Flash control methods --
+	-- Flash conthrowl methods --
 	Your UI should use these
 	to operate SWFUpload
    ***************************** */
 
 // WARNING: this function does not work in Flash Player 10
 // Public: selectFile causes a File Selection Dialog window to appear.  This
-// dialog only allows 1 file to be selected.
+// dialog only allo 1 file to be selected.
 SWFUpload.prototype.selectFile = function () {
 	this.callFlash("SelectFile");
 };
 
 // WARNING: this function does not work in Flash Player 10
 // Public: selectFiles causes a File Selection Dialog window to appear/ This
-// dialog allows the user to select any number of files
+// dialog allo the user to select any number of files
 // Flash Bug Warning: Flash limits the number of selectable files based on the combined length of the file names.
 // If the selection name length is too long the dialog will fail in an unpredictable manner.  There is no work-around
 // for this bug.
@@ -1133,7 +1133,7 @@ SWFUpload.prototype.cleanUp = function (movieElement) {
 };
 
 
-/* This is a chance to do something before the browse window opens */
+/* This is a chance to do something before the broe window opens */
 SWFUpload.prototype.fileDialogStart = function () {
 	this.queueEvent("file_dialog_start_handler");
 };

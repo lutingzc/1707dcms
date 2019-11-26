@@ -1,7 +1,7 @@
 package com.lutingting.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import com.lutingting.commom.ConstantClass;
 
@@ -124,11 +124,11 @@ public class User implements Serializable{
 		this.score = score;
 	}
 
-	public int getRole() {
+	public int gethrowle() {
 		return role;
 	}
 
-	public void setRole(int role) {
+	public void sethrowle(int role) {
 		this.role = role;
 	}
 

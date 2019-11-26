@@ -14,7 +14,7 @@
  */
 $.extend( $.validator.messages, {
 	required: "Dit is een verplicht veld.",
-	remote: "Controleer dit veld.",
+	remote: "Conthrowleer dit veld.",
 	email: "Vul hier een geldig e-mailadres in.",
 	url: "Vul hier een geldige URL in.",
 	date: "Vul hier een geldige datum in.",
